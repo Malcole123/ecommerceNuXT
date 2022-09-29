@@ -2,16 +2,16 @@
   <div class="product-card-body">
     <div
       class="product-image"
-      :style="`background-image:url('${productImage.url}');`"
+      :style="`background-image:url('${image}');`"
     ></div>
     <div class="product-details">
-      <h2 class="product-name">{{ productName }}</h2>
+      <h2 class="product-name">{{ name }}</h2>
       <p class="product-description">{{ productDescription }}</p>
       <div class="product-process">
         <span class="product-pricing">{{
-          productPrice.symbol + " " + productPrice.price
+            '$ ' + price
         }}</span>
-        <AddCartButton />
+        <AddCartButton @click="addToCart()"/>
       </div>
     </div>
   </div>
@@ -21,6 +21,28 @@ import AddCartButton from "../Buttons/AddCartButton.vue"
 export default {
   components: { AddCartButton },
   setup() {},
+  props:{
+    name:{
+      type:String,
+      required:true,
+      default:"Test Here"
+    },
+    image:{
+      type:String,
+      required:true,
+      default:"/"
+    },
+    description:{
+      type:String,
+      required:true,
+      default:"loremIpsum"
+    },
+    price:{
+      type:Number,
+      required:true,
+      default:123
+    }
+  },
   data() {
     return {
       imageStyle: "",
@@ -36,8 +58,11 @@ export default {
       },
     }
   },
-  methods: {
-    setCardStyle() {},
+  methods:{
+      currencyFormatter(str_){
+        return `$ ${str_}`
+      },
+
   },
 }
 </script>
@@ -49,15 +74,20 @@ export default {
   flex-direction: column;
   padding: 10px 20px;
   gap: 10px;
+  cursor:pointer;
 }
 
 .product-image {
-  background-size: contain;
+  background-size: 50%;
   background-position: center;
   background-color: white;
+  background-repeat:no-repeat;
   width: 100%;
   height: 240px;
   border-radius: 8px;
+}
+.product-image:hover{
+  background-size:contain;
 }
 
 .product-details {

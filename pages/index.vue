@@ -5,15 +5,10 @@
       <MainSearchVue />
       <div class="results-display-area">
         <div class="results-wrapper">
-          <div class="product-display-area display-quad">
-            <TheMainProductCard v-for="n in 4" :key="'test' + n" />
+          <div class="product-display-area" :class="item.type === 'quad' ? 'display-quad' :'display-trio'" v-for="(item,index) in products" :key="'pro_dp_' + index">
+            <TheMainProductCard v-for="(prod,i) in item.products" :key="'prod_item_' + i" :name="prod.title" :image="prod.image" :description="prod.description" :price="prod.price" @click="addCart()"/>
           </div>
-          <div class="product-display-area display-trio">
-            <TheMainProductCard v-for="n in 3" :key="'test-tro' + n" />
-          </div>
-          <div class="product-display-area display-quad">
-            <TheMainProductCard v-for="n in 4" :key="'test-qua' + n" />
-          </div>
+
         </div>
       </div>
     </div>
@@ -30,9 +25,48 @@ import MainSearchVue from "~/components/inputs/MainSearch.vue"
 import TheMainProductCard from "~/components/cards/TheMainProductCard.vue"
 export default {
   name: "IndexPage",
+  async mounted(){
+      const productSort = (arr)=>{
+          let sort_arr = [4, 3, 4, 3, 4, 3];
+          let return_arr = [];
+          let checked = 0;
+          sort_arr.forEach((num, index)=>{
+              let created_obj = {
+                type:num === 4 ? 'quad' :'trio',
+                products:[],
+              }
+              created_obj.products = arr.splice(checked, num);
+              return_arr.push(created_obj)
+          })
+          return return_arr
+      }
+      let products_ = await fetch('/api/products').then(res=>res.json()).then(data=>{return data}).catch(error=>{return []});
+      this.products = productSort(products_)
+      console.log(this.products)
+  },
   components: { TheSidebar, EmbededCartVue, MainSearchVue, TheMainProductCard },
+  data(){
+    return {
+      products:[],
+      cart:[],
+    }
+  },
+  watch:{
+    cart:{
+      handler(newValue, oldValue){
+        localStorage.setItem("shoppingCART", JSON.stringify(newValue));
+        alert("updated")
+      },
+      deep:true
+    }
+  },
+
+  methods:{
+
+  }
 }
 </script>
+
 <style>
 * {
   margin: 0;

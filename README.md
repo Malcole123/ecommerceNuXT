@@ -19,5 +19,5 @@ $ npm run generate
 
 For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
 
-## Special Directories
+## Live Project
 View the live project [here](https://ecommerce-nu-xt-tw7v.vercel.app/)
