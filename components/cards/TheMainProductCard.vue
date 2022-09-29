@@ -6,22 +6,33 @@
     ></div>
     <div class="product-details">
       <h2 class="product-name">{{ name }}</h2>
-      <p class="product-description">{{ productDescription }}</p>
+      <p class="product-description">{{ description }}</p>
       <div class="product-process">
-        <span class="product-pricing">{{
+        <span class="product-pricing fs-5">{{
             '$ ' + price
         }}</span>
-        <AddCartButton @click="addToCart()"/>
+        <div class="add-cart-btn" @click="addCartItem">
+          <AddCartButton/>
+        </div>
       </div>
+    </div>
+    <div class="preview-card">
+
     </div>
   </div>
 </template>
+
 <script>
 import AddCartButton from "../Buttons/AddCartButton.vue"
 export default {
   components: { AddCartButton },
-  setup() {},
+  emits:['productAdded'],
   props:{
+    uid:{
+      type:String,
+      required:true,
+      default:"12345678"
+    },
     name:{
       type:String,
       required:true,
@@ -45,24 +56,30 @@ export default {
   },
   data() {
     return {
-      imageStyle: "",
-      productImage: {
-        url: "",
-      },
-      productName: "Test Name",
-      productDescription: "loremImposum",
-      productPrice: {
-        currency: "USD",
-        symbol: "$",
-        price: "129.99",
-      },
+      preview:{
+        delay:500,
+        lastFocus:0,
+        mouse:{
+          x:0,
+          y:0,
+        }
+      }
     }
   },
   methods:{
       currencyFormatter(str_){
         return `$ ${str_}`
       },
+      addCartItem(){
+        this.$store.commit('cart/add', {
+              prodID:this.uid,
+              name:this.name,
+              price:this.price,
+              img:this.image
+          })
+          //this.$store.commit('cart/clear')
 
+      }
   },
 }
 </script>
@@ -75,6 +92,7 @@ export default {
   padding: 10px 20px;
   gap: 10px;
   cursor:pointer;
+  position:relative;
 }
 
 .product-image {
@@ -106,6 +124,9 @@ export default {
   font-size: 16px;
   font-weight: 400;
   color: #60695c;
+  height:22px;
+  overflow:hidden;
+  position:relative;
 }
 
 .product-process {
@@ -117,4 +138,18 @@ export default {
 .product-pricing {
   font-weight: 600;
 }
+
+.preview-card{
+  position:absolute;
+  height:200px;
+  width:200px;
+  background:white;
+  top:50%;
+  left:60%;
+  z-index:2;
+  display:none;
+  transition:0.5s ease-in-out;
+}
+
+
 </style>

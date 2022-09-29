@@ -2,11 +2,11 @@
   <div class="main-app-body">
     <TheSidebar />
     <div class="product-search-area">
-      <MainSearchVue />
+      <MainSearchVue @click="filterList"/>
       <div class="results-display-area">
         <div class="results-wrapper">
           <div class="product-display-area" :class="item.type === 'quad' ? 'display-quad' :'display-trio'" v-for="(item,index) in products" :key="'pro_dp_' + index">
-            <TheMainProductCard v-for="(prod,i) in item.products" :key="'prod_item_' + i" :name="prod.title" :image="prod.image" :description="prod.description" :price="prod.price" @click="addCart()"/>
+            <TheMainProductCard v-for="(prod,i) in item.products" :key="'prod_item_' + i" :name="prod.title" :image="prod.image" :description="prod.description" :price="prod.price" :uid="`${prod.id}`"/>
           </div>
 
         </div>
@@ -42,7 +42,6 @@ export default {
       }
       let products_ = await fetch('/api/products').then(res=>res.json()).then(data=>{return data}).catch(error=>{return []});
       this.products = productSort(products_)
-      console.log(this.products)
   },
   components: { TheSidebar, EmbededCartVue, MainSearchVue, TheMainProductCard },
   data(){
@@ -51,18 +50,13 @@ export default {
       cart:[],
     }
   },
-  watch:{
-    cart:{
-      handler(newValue, oldValue){
-        localStorage.setItem("shoppingCART", JSON.stringify(newValue));
-        alert("updated")
-      },
-      deep:true
-    }
-  },
-
   methods:{
-
+    filterList(prompt){
+      console.log("prompt")
+    },
+    addProduct(){
+      console.log("pos")
+    }
   }
 }
 </script>
@@ -159,7 +153,7 @@ body {
 
 @media (max-width: 768px) {
   .main-app-body {
-    padding-left: 105px;
+    padding-left: 90px;
     padding-right: 10px;
   }
 

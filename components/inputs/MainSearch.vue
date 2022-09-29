@@ -6,12 +6,30 @@
       name="searchQuery"
       type="text"
       placeholder="Apple Watch, Samsung S21, Macbook Pro, ..."
+      v-model.trim="search"
     />
   </div>
 </template>
+<script>
+export default {
+    emits:{
+      searchChange(){
+        return this.search
+      }
+    },
+    data(){
+      return {
+        search:"",
+      }
+    },
+
+}
+</script>
+
+
 <style scoped>
 .main-search {
-  width: fit-content;
+  width:100%;
   height: fit-content;
   padding: 10px 20px;
 }
@@ -26,7 +44,7 @@
 
 .main-search input {
   height: 45px;
-  width: 30vw;
+  width:45%;
   background: #fff;
   box-shadow: 0 4 16 rgba(26 31 22 / 15%);
   border-radius: 13px;
