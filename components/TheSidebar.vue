@@ -47,6 +47,7 @@ export default {
   flex-direction: column;
   gap: 20px;
   align-items: center;
+  list-style-type:none;
 }
 
 @media (max-width: 768px) {

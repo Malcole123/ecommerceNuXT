@@ -13,6 +13,7 @@
 .main-search {
   width: fit-content;
   height: fit-content;
+  padding: 10px 20px;
 }
 
 .main-search > * {
@@ -31,6 +32,7 @@
   border-radius: 13px;
   margin-top: 0.5rem;
   outline: none;
+  border:none;
   padding-left: 15px;
   transition: 0.1s ease-in-out;
   font-size: 20px;
