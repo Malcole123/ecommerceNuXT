@@ -27,32 +27,7 @@ export default {
   name: "IndexPage",
   async mounted(){
       this.device.width = window.innerWidth;
-      const productSort = (arr)=>{
-          let sort_arr = [4, 3, 4, 3, 4, 3];
-          let return_arr = [];
-          let checked = 0;
-          sort_arr.forEach((num, index)=>{
-              let created_obj = {
-                type:num === 4 ? 'quad' :'trio',
-                products:[],
-              }
-              created_obj.products = arr.splice(checked, num);
-              return_arr.push(created_obj)
-          })
-          return return_arr
-      }
-      let products_ = await fetch('/api/products').then(res=>res.json()).then(data=>{
-        return data
-    }).catch(error=>{
-        console.log(error)
-        return false
-      });
-      if(typeof products_ === "object"){
-        console.log("Products retrieved")
-        this.products = productSort(products_);
-      }else{
-        console.log('No products retrieved')
-      }
+      this.fetchProducts()
   },
   components: { TheSidebar, EmbededCartVue, MainSearchVue, TheMainProductCard },
   data(){
@@ -95,6 +70,25 @@ export default {
           break
       }
 
+    },
+    async fetchProducts(){
+      const productSort = (arr)=>{
+          let sort_arr = [4, 3, 4, 3, 4, 3];
+          let return_arr = [];
+          let checked = 0;
+          sort_arr.forEach((num, index)=>{
+              let created_obj = {
+                type:num === 4 ? 'quad' :'trio',
+                products:[],
+              }
+              created_obj.products = arr.splice(checked, num);
+              return_arr.push(created_obj)
+          })
+          return return_arr
+      }
+        let p_ = await this.$axios.$get("/api/products").then(data=>{return data});
+        console.log(p_)
+      this.products = productSort(p_)
     }
   }
 }
