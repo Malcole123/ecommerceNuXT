@@ -22,7 +22,6 @@ app.get('/product_one/*', async (req,res, next)=>{
   if(return_var === undefined){
     res.send({msg:"No Product Found", status:400})
   }else{
-    console.log(return_var)
     res.send({status:200, data:return_var})
   }
 })
