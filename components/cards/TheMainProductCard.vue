@@ -13,7 +13,7 @@
         <span class="product-pricing fs-5">{{
             pricePrettier
         }}</span>
-        <div class="add-cart-btn" @click="addCartItem">
+        <div class="add-cart-btn-sml" @click="addCartItem">
           <AddCartButton/>
         </div>
       </div>
