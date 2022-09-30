@@ -8,7 +8,7 @@ const errorHandle = async (req, res , next)=>{
 }
 
 app.get('/products', async (req,res, next)=>{
-  res.status(200).send(products)
+  res.status(200).send({products})
 })
 
 app.get('/product_one/*', async (req,res, next)=>{
