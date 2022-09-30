@@ -34,7 +34,7 @@ export default {
   serverMiddleware:[
     {
       path:'/api',
-      handler:'~/api/products.js'
+      handler:'~/server/api/products.js'
     },
   ],
   // Modules: https://go.nuxtjs.dev/config-modules

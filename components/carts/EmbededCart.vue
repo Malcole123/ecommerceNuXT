@@ -109,12 +109,13 @@ export default {
 .cart-display{
   margin-top:15px;
   width:100%;
-  height:80%;
+  height:75%;
   overflow-y:scroll;
 }
 
 .cart-checkout{
   padding:12px 0px;
+  height:25%;
 }
 
 .cart-checkout h2{

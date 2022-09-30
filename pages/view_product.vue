@@ -6,10 +6,10 @@
         <NuxtLink to="/"><button type="button" class="btn btn-outline-dark">Back</button></NuxtLink>
       </div>
       <div class="row g-3 mt-4">
-        <div class="col-lg-4 col-md-5 col-sm-12">
+        <div class="col-lg-4 col-md-5 col-sm-12 p-2">
             <div class="product-image" :style="`background-image:url('${product.image}')`"></div>
         </div>
-        <div class="col-lg-8 col-md-7 col-sm-12">
+        <div class="col-lg-8 col-md-7 col-sm-12 p-2">
           <div class="w-100 pt-2 pb-2">
             <h1 class="product-title">{{product.name}}</h1>
             <h2 class="product-category mt-2">{{product.category}}</h2>
@@ -56,7 +56,7 @@ export default {
   async mounted(){
       this.device.width = window.innerWidth;
       let uid = window.location.search.replace('?uid=', '');
-      const {status, msg , data} = await fetch(`./api/product_one/${uid}`).then(res=>res.json()).then(data=>{return data}).catch(error=>{return {}});
+      const {status, msg , data} = await fetch(`/api/product_one/${uid}`).then(res=>res.json()).then(data=>{return data}).catch(error=>{return {}});
       if(status===200){
           const { image, description, title , category, price, rating, id } = data;
           this.product.image = image;
@@ -220,13 +220,14 @@ body {
 .add-cart-btn{
   background:#1A1F16;
   color:white;
-  border-radius:14px;
+  border-radius:10px;
   display:flex;
   gap:2px;
   align-items:center;
   font-size:1.1rem;
   font-weight:600;
   padding:4px 6px;
+  padding-right:12px;
   text-transform:capitalize;
   cursor:pointer;
 }

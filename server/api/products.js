@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const products = require("../products.json");
+const products = require("../../products.json");
 app.use(express.json());
 
 const errorHandle = async (req, res , next)=>{

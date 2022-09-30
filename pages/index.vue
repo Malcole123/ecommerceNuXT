@@ -41,7 +41,7 @@ export default {
           })
           return return_arr
       }
-      let products_ = await fetch('./api/products').then(res=>res.json()).then(data=>{return data}).catch(error=>{return []});
+      let products_ = await fetch('/api/products').then(res=>res.json()).then(data=>{return data}).catch(error=>{return []});
       this.products = productSort(products_)
   },
   components: { TheSidebar, EmbededCartVue, MainSearchVue, TheMainProductCard },
