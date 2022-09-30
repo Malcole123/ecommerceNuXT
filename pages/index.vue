@@ -41,23 +41,15 @@ export default {
           })
           return return_arr
       }
-      let products_ = await fetch('/api/products').then(res=>{
-        if(res.status === 200){
-          return res.json()
-        }else{
-          console.log('error');
-          return false
-        }
-      }).then(data=>{
-        console.log(data);
+      let products_ = await fetch('/api/products').then(res=>res.json()).then(data=>{
         return data
-
     }).catch(error=>{
         console.log(error)
         return false
       });
       if(typeof products_ === "object"){
-        this.products = productSort(products_)
+        console.log("Products retrieved")
+        this.products = productSort(products_);
       }else{
         console.log('No products retrieved')
       }
