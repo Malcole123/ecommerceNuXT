@@ -22,7 +22,9 @@
 import EmbededCartVue from "~/components/carts/EmbededCart.vue"
 import TheSidebar from "~/components/TheSidebar.vue"
 import MainSearchVue from "~/components/inputs/MainSearch.vue"
-import TheMainProductCard from "~/components/cards/TheMainProductCard.vue"
+import TheMainProductCard from "~/components/cards/TheMainProductCard.vue";
+
+
 export default {
   name: "IndexPage",
   async mounted(){
@@ -86,9 +88,10 @@ export default {
           })
           return return_arr
       }
-        let p_ = await this.$axios.$get("/api/products").then(data=>{return data});
-        console.log(p_)
-      this.products = productSort(p_)
+      console.log(this.$axios.defaults.baseURL)
+        let p_ = await this.$axios.$get(`/api/products`).then(data=>{return data}).catch(error=>{return error});
+        console.log(p_);
+        //this.products = productSort(p_)
     }
   }
 }
