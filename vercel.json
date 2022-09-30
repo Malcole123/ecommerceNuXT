@@ -2,16 +2,20 @@
   "version": 2,
   "routes": [
     {
-      "src": "/api/products/**",
+      "src": "/api/products/",
       "dest": "/server/api/products.js"
     }
   ],
   "builds": [
     {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    },
+    {
       "src": "nuxt.config.js",
       "use": "@nuxtjs/vercel-builder",
       "config": {
-        "serverFiles": ["/server/api/**"]
+        "serverFiles": ["server/api/**"]
       }
     }
   ]
