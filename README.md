@@ -20,4 +20,4 @@ $ npm run generate
 For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
 
 ## Live Project
-View the live project [here](https://ecommerce-nu-xt-tw7v.vercel.app/). INCOMPLETE
+View the live project [here](https://ecommerce-nu-xt-tw7v.vercel.app/). INCOMPLETE - Fetch error
