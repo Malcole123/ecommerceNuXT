@@ -8,7 +8,7 @@ const errorHandle = async (req, res , next)=>{
 }
 
 app.get('/products', async (req,res, next)=>{
-  res.send(products)
+  res.status(200).send(products)
 })
 
 app.get('/product_one/*', async (req,res, next)=>{
@@ -20,9 +20,9 @@ app.get('/product_one/*', async (req,res, next)=>{
     }
   })
   if(return_var === undefined){
-    res.send({msg:"No Product Found", status:400})
+    res.json({msg:"No Product Found", status:400})
   }else{
-    res.send({status:200, data:return_var})
+    res.json({status:200, data:return_var})
   }
 })
 

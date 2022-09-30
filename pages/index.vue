@@ -89,9 +89,9 @@ export default {
           return return_arr
       }
       console.log(this.$axios.defaults.baseURL)
-        let p_ = await fetch(this.$axios.defaults.baseURL + `api/products`).then(res=>res.json()).then(data=>{return {ok:true, data:data}}).catch(error=>{return {ok:false,error:error}});
+        const p_ = await fetch(this.$axios.defaults.baseURL + `api/products`).then(res=>res.json()).then(data=>{return {ok:true, data:data}}).catch(error=>{return {ok:false,error:error}});
         console.log(p_);
-        if(p_.ok){
+        if(p_.ok && p_.data !== undefined){
           this.products = productSort(p_.data)
         }else{
           console.log(p_)
