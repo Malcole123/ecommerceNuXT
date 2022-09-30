@@ -31,7 +31,7 @@ export default {
   buildModules: [
   ],
   //Middle Ware
-  serverMiddleware:proces.env.NODE_ENV === 'production' ? [] :
+  serverMiddleware:process.env.NODE_ENV === 'production' ? [] :
   [
     {
       path:'/api',
