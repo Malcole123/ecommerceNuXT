@@ -7,14 +7,19 @@
       <li>
         <NuxtLink to="/orders"><OrderIcon /></NuxtLink>
       </li>
+      <li>
+        <ViewCartBtn @cartOpenCalled="openCart"/>
+      </li>
     </ul>
   </nav>
 </template>
 <script>
 import MenuIcon from "./icons/MenuIcon.vue"
 import OrderIcon from "./icons/OrderIcon.vue"
+import ViewCartBtn from "./Buttons/ViewCartBtn.vue"
 export default {
-  components: { MenuIcon, OrderIcon },
+  emits:['cartOpen'],
+  components: { MenuIcon, OrderIcon, ViewCartBtn },
   data() {
     return {
       nav_links: [
@@ -26,6 +31,11 @@ export default {
       ],
     }
   },
+  methods:{
+    openCart(){
+      this.$emit('cartOpen')
+    }
+  }
 }
 </script>
 <style>

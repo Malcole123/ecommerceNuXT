@@ -1,5 +1,6 @@
 <template>
-  <svg
+  <div class="ecom-icon">
+    <svg
     width="35"
     height="34"
     viewBox="0 0 35 34"
@@ -12,4 +13,10 @@
       fill="white"
     />
   </svg>
+  </div>
 </template>
+<style>
+.ecom-icon{
+  cursor:pointer;
+}
+</style>

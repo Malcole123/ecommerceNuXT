@@ -11,6 +11,7 @@ const getters = {
     return state.cartTotal
   }
 }
+
 const mutations = {
   add(state, prodObj){
     const {name , prodID, price, img } = prodObj;
@@ -38,15 +39,18 @@ const mutations = {
   },
 
   remove(state, { prodID }){
-    state.cartItems = state.filter((item,index)=>{
-      if(item.prodID !== prodID){
+    state.cartItems = state.cartItems.filter((item,index)=>{
+      if(item.uid !== prodID){
         return item
       }
     })
+    localStorage.setItem('ANCA02I8MX', JSON.stringify(state.cartItems));
   },
 
   clear(state){
-    state.cartItems = []
+    state.cartItems = [];
+    localStorage.setItem('ANCA02I8MX', JSON.stringify([]));
+    console.log(state.cartItems)
   },
 
   loadFromLocal(state){

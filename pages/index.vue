@@ -1,19 +1,19 @@
 <template>
   <div class="main-app-body">
-    <TheSidebar />
+    <TheSidebar @cartOpen="openCart"/>
     <div class="product-search-area">
       <MainSearchVue @click="filterList"/>
       <div class="results-display-area">
         <div class="results-wrapper">
           <div class="product-display-area" :class="item.type === 'quad' ? 'display-quad' :'display-trio'" v-for="(item,index) in products" :key="'pro_dp_' + index">
-            <TheMainProductCard v-for="(prod,i) in item.products" :key="'prod_item_' + i" :name="prod.title" :image="prod.image" :description="prod.description" :price="prod.price" :uid="`${prod.id}`"/>
+            <TheMainProductCard v-for="(prod,i) in item.products" :key="'prod_item_' + i" :name="prod.title" :image="prod.image" :description="prod.description" :price="prod.price" :uid="`${prod.id}`" @productAdded="addProduct"/>
           </div>
 
         </div>
       </div>
     </div>
-    <div class="cart-wrapper">
-      <EmbededCartVue :calc="'page-cart'" />
+    <div class="cart-wrapper" :class="cartClass">
+      <EmbededCartVue :calc="'page-cart'" @cartClosed="closeCart"/>
     </div>
   </div>
 </template>
@@ -26,6 +26,7 @@ import TheMainProductCard from "~/components/cards/TheMainProductCard.vue"
 export default {
   name: "IndexPage",
   async mounted(){
+      this.device.width = window.innerWidth;
       const productSort = (arr)=>{
           let sort_arr = [4, 3, 4, 3, 4, 3];
           let return_arr = [];
@@ -46,9 +47,20 @@ export default {
   components: { TheSidebar, EmbededCartVue, MainSearchVue, TheMainProductCard },
   data(){
     return {
+      device:{
+        width:0,
+        height:0,
+      },
       products:[],
       cart:[],
+      cartClass:"",
     }
+  },
+  computed:{
+
+  },
+  watch:{
+
   },
   methods:{
     filterList(prompt){
@@ -56,6 +68,23 @@ export default {
     },
     addProduct(){
       console.log("pos")
+    },
+    openCart(){
+      this.cartToggle('open')
+    },
+    closeCart(){
+      this.cartToggle('close')
+    },
+    cartToggle(act_){
+      switch(act_){
+        case "open":
+            this.cartClass =  'show-cart';
+          break
+        case "close":
+          this.cartClass = ''
+          break
+      }
+
     }
   }
 }
@@ -105,6 +134,7 @@ body {
 .cart-wrapper {
   width: 30%;
   height: 100%;
+  transition:0.4s ease-in-out
 }
 
 .product-display-area {
@@ -134,6 +164,7 @@ body {
   .cart-wrapper {
     position: fixed;
     right: -100vw;
+    background:white;
   }
 }
 
@@ -149,6 +180,14 @@ body {
   .display-trio > *:nth-child(3) {
     width: 133%;
   }
+  .show-cart{
+  width:100%;
+  top:0%;
+  right:0;
+  height:100%;
+  padding:0px;
+}
+
 }
 
 @media (max-width: 768px) {

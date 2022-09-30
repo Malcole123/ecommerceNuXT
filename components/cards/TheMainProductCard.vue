@@ -1,15 +1,17 @@
 <template>
   <div class="product-card-body">
-    <div
+    <NuxtLink :to="'/view_product?uid='+uid">
+      <div
       class="product-image"
       :style="`background-image:url('${image}');`"
     ></div>
+  </NuxtLink>
     <div class="product-details">
       <h2 class="product-name">{{ name }}</h2>
       <p class="product-description">{{ description }}</p>
       <div class="product-process">
         <span class="product-pricing fs-5">{{
-            '$ ' + price
+            pricePrettier
         }}</span>
         <div class="add-cart-btn" @click="addCartItem">
           <AddCartButton/>
@@ -76,11 +78,17 @@ export default {
               name:this.name,
               price:this.price,
               img:this.image
-          })
-          //this.$store.commit('cart/clear')
-
+        })
+        this.$emit('productAdded')
       }
   },
+  computed:{
+    pricePrettier(){
+    let p_s = `${this.price}`;
+    let p_a = p_s.split('.');
+    return p_s.includes('.') && p_a[1].length <= 1 ? `$ ${p_s}0` : `$ ${p_s}`
+    }
+  }
 }
 </script>
 <style scoped>

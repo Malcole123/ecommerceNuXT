@@ -35,7 +35,7 @@ export default {
     {
       path:'/api',
       handler:'~/api/products.js'
-    }
+    },
   ],
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
