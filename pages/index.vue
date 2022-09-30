@@ -90,19 +90,19 @@ export default {
           })
           return return_arr
       }
-      const {ok, data , error} = await this.$axios.$get("/api/products").then(data=>{
-          return {
-            ok:true,
-            data,
-          }
+      const {ok, data , error} = await this.$axios.$get("/api/products/get_all/1").then(data=>{
+            return {
+              ok:true,
+              data:data.data
+            }
         }).catch(error =>{
               return {
                 ok:false,
                 error,
               }
         })
-        if(ok){
-          this.products = productSort(data.products)
+        if(data){
+          this.products = productSort(data)
         }else{
           //Handle Error Here
         }

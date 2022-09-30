@@ -4,27 +4,45 @@ const app = express();
 const products = require("../../products.json");
 app.use(express.json());
 
-const errorHandle = async (req, res , next)=>{
-  res.send({msg:"No Product Found", status:400})
-}
-
-app.get('/products', async (req,res, next)=>{
-  res.status(200).send({products})
-})
-
-app.get('/product_one/*', async (req,res, next)=>{
-  let p_arr = req.path.split('/');
-  let t_uid = [...p_arr][p_arr.length-1];
+const getOne = (t_uid)=>{
   let return_var = [...products].find((item,index)=>{
     if(item.id === t_uid){
       return item
     }
   })
   if(return_var === undefined){
-    res.json({msg:"No Product Found", status:400})
+    return {ok:false,data:null}
   }else{
-    res.json({status:200, data:return_var})
+      return {ok:true, data:return_var}
   }
+}
+
+const getAll = ()=>{
+  return {
+    ok:true,
+    data:products,
+  }
+}
+export default app.all('/products/:get_action/:product_id', async (req,res, next)=>{
+  let action = req.params['get_action'];
+  let prodID = req.params['product_id']
+  let response = {
+    ok:false,
+    data:null
+  }
+  switch(action){
+    case "get_all":
+      response = getAll();
+      break
+    case "get_one":
+      if(prodID === undefined){break}
+      response = getOne(prodID)
+      break
+  }
+  res.send(response)
 })
 
-export default app
+
+
+
+

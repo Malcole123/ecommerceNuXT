@@ -56,8 +56,8 @@ export default {
   async mounted(){
       this.device.width = window.innerWidth;
       let uid = window.location.search.replace('?uid=', '');
-      const {status, msg , data} = await this.$axios.$get(`/api/product_one/${uid}`).then(data=>{return data}).catch(error=>{return {}});
-      if(status===200){
+      const {ok , data} = await this.$axios.$get(`/api/products/get_one/${uid}`).then(data=>{return data}).catch(error=>{return {}});
+      if(ok){
           const { image, description, title , category, price, rating, id } = data;
           this.product.image = image;
           this.product.description = description;
