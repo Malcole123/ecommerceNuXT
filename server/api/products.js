@@ -27,4 +27,4 @@ app.get('/product_one/*', async (req,res, next)=>{
   }
 })
 
-module.exports = app
+export default app
