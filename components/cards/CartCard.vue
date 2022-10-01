@@ -20,7 +20,7 @@ export default ({
   components:{ TrashIcon,},
   props:{
     prodID:{
-      type:String,
+      type:anymatch,
       required:true,
       default:"test"
     },

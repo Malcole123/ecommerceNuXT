@@ -13,7 +13,7 @@
             <h2>{{"$ " + cartTotalCalc_ }}</h2>
           </div>
           <div class="w-100 mt-1">
-              <NuxtLink :to="checkoutRoute"><button type="button" class="w-100 btn btn-dark">Checkout</button></NuxtLink>
+              <NuxtLink to="/checkout"><button type="button" class="w-100 btn btn-dark">Checkout</button></NuxtLink>
               <button type="button" class="w-100 btn btn-outline-dark mt-1" @click="clearCart">Clear</button>
           </div>
       </div>
@@ -62,9 +62,6 @@ export default {
       currentCart(){
         let cart_  = this.$store.getters["cart/getCart"];
         return cart_
-      },
-      checkoutRoute(){
-        return '/checkout/address'
       }
     },
     methods:{

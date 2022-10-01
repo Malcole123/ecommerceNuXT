@@ -1,5 +1,18 @@
 const state = ()=>({
-  cartItems:[],
+    authToken:"",
+    user:{
+      name:"",
+      email:"",
+      phone_number:"",
+      address:[{
+        recipient_name:"",
+        street_name:"",
+        city:"",
+        state:"",
+        country:"",
+        default:false
+      }]
+    }
 })
 
 const getters = {

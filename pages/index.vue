@@ -2,11 +2,17 @@
   <div class="main-app-body">
     <TheSidebar @cartOpen="openCart"/>
     <div class="product-search-area">
-      <MainSearchVue @click="filterList"/>
+      <MainSearchVue @searchChange="searchProducts" @searchEnd="endSearch"/>
       <div class="results-display-area">
-        <div class="results-wrapper">
-          <div class="product-display-area" :class="item.type === 'quad' ? 'display-quad' :'display-trio'"  v-for="(item,index) in products" :key="'pro_dp_' + index">
-            <TheMainProductCard v-for="(prod,i) in item.products" :key="'prod_item_' + i" :name="prod.title" :image="prod.image" :description="prod.description" :price="prod.price" :uid="`${prod.uid}`" @productAdded="addProduct"/>
+        <div class="results-wrapper" id="filteredResults" v-if="searchActive">
+          <div class="product-display-area display-quad">
+            <TheMainProductCard v-for="(prod,i) in products.filtered" :key="'prod_f_item_' + i" :name="prod.title" :image="prod.image" :description="prod.description" :price="prod.price" :uid="`${prod.uid}`" @productAdded="addProduct" :matchStr="search" :highlight="true"/>
+          </div>
+
+        </div>
+        <div class="results-wrapper" id="unfilteredResults" v-if="!searchActive">
+          <div class="product-display-area" :class="item.type === 'quad' ? 'display-quad' :'display-trio'"  v-for="(item,index) in products.sorted" :key="'prod_uf_item' + index">
+            <TheMainProductCard v-for="(prod,i) in item.products" :key="'prod_item_' + i" :name="prod.title" :image="prod.image" :description="prod.description" :price="prod.price" :uid="`${prod.uid}`" @productAdded="addProduct" :highlight="false"/>
           </div>
 
         </div>
@@ -25,34 +31,14 @@ import MainSearchVue from "~/components/inputs/MainSearch.vue"
 import TheMainProductCard from "~/components/cards/TheMainProductCard.vue";
 export default {
   name: "IndexPage",
-  async mounted(){
-      console.log('mounted')
-      this.device.width = window.innerWidth;
-      const productSort = (arr)=>{
-         let sort_arr = [4, 3, 4, 3, 4, 3];
-         let return_arr = [];
-         let checked = 0;
-         sort_arr.forEach((num, index)=>{
-             let created_obj = {
-               type:num === 4 ? 'quad' :'trio',
-               products:[],
-             }
-             created_obj.products = arr.splice(checked, num);
-             return_arr.push(created_obj)
-         })
-         return return_arr
-     }
-     let dt_ = await fetch("https://x8ki-letl-twmt.n7.xano.io/api:3ky6p00f/products").then(res=>res.json()).then(data=>{return data}).catch(error=>{return []});
-     if(dt_.ok){
-      //Load locally
-      this.products = productSort(dt_.data)
-      //COmmit to store
-      this.$store.commit('products/setProducts',{ dt_ })
 
-     }else{
-      //Handle error
-     }
-      console.log(dt_, 'run')
+  async mounted(){
+      await this.$store.dispatch('products/getProductData')
+      this.device.width = window.innerWidth;
+      let ps = await this.$store.getters['products/getAllProducts'];
+      this.products.clean = ps['all'];
+      this.products.sorted = ps['mSort'];
+      this.searchActive = false;
   },
   components: { TheSidebar, EmbededCartVue, MainSearchVue, TheMainProductCard },
   data(){
@@ -61,21 +47,27 @@ export default {
         width:0,
         height:0,
       },
-      products:[],
+      products:{
+        sorted:[],
+        clean:[],
+        filtered:[],
+      },
       cart:[],
       cartClass:"",
+      search:"",
+      searchActive:false
     }
   },
   computed:{
+      searchList(){
 
+
+      },
   },
   watch:{
 
   },
   methods:{
-    filterList(prompt){
-      console.log("prompt")
-    },
     addProduct(){
       console.log("pos")
     },
@@ -96,6 +88,29 @@ export default {
       }
 
     },
+    searchProducts({currentInput}){
+      //Swap for plugin
+      const compare = (str_1, str_2)=>{
+            if(str_1 === str_2){
+              return true
+            }else{
+              return false
+            }
+      }
+
+      this.searchActive = true;
+      this.search = currentInput;
+      let copy_ = this.products.clean;
+      this.products.filtered = copy_.filter((it,ind)=>{
+          if(compare(it.title.substr(0, this.search.length), this.search)){
+            return it
+          }
+        })
+    },
+    endSearch(){
+      this.searchActive = false;
+    }
+
   }
 }
 </script>

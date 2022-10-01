@@ -7,7 +7,8 @@
     ></div>
   </NuxtLink>
     <div class="product-details">
-      <h2 class="product-name">{{ name }}</h2>
+      <h2 class="product-name" v-if="!highlight">{{name}}</h2>
+      <h2 class="product-name" v-if="highlight"><span v-if="matchStr.length > 0" class="search-highlight">{{highlighter.highlight}}</span>{{highlighter.regular}}</h2>
       <p class="product-description">{{ description }}</p>
       <div class="product-process">
         <span class="product-pricing">{{
@@ -54,7 +55,17 @@ export default {
       type:Number,
       required:true,
       default:123
-    }
+    },
+    matchStr:{
+      type:String,
+      required:false,
+      default:"",
+    },
+    highlight:{
+      type:Boolean,
+      required:true,
+      default:false,
+    },
   },
   data() {
     return {
@@ -80,14 +91,37 @@ export default {
               img:this.image
         })
         this.$emit('productAdded')
-      }
+      },
+
   },
   computed:{
     pricePrettier(){
     let p_s = `${this.price}`;
     let p_a = p_s.split('.');
     return p_s.includes('.') && p_a[1].length <= 1 ? `$ ${p_s}0` : `$ ${p_s}`
-    }
+    },
+    unique(){
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < 12; i++ ) {
+          result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      }
+      return result;
+    },
+    highlighter(){
+        if(this.matchStr.length > 0){
+          return {
+            regular:this.name.substr(this.matchStr.length-1, this.name.length-1),
+            highlight:this.matchStr.substr(0, this.matchStr.length -1)
+          }
+        }else{
+          return {
+            regular:this.name,
+            highlight:""
+        }
+        }
+    },
   }
 }
 </script>
@@ -127,6 +161,14 @@ export default {
   font-weight: 500;
   color: #1a1f16;
 }
+
+.search-highlight{
+  background:#02d693;
+  padding:2px 1px;
+  font-weight:bolder;
+  color:white;
+}
+
 
 .product-description {
   font-size: 16px;

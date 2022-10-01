@@ -39,18 +39,47 @@ const getters = {
 }
 
 const mutations = {
-  async setProducts(state, {dt_}){
-     if(dt_.ok){
-       state.allProducts.push(...products)
-       console.log(state.allProducts)
-     }else{
-       //Input Error Handling
-     }
+  async setProducts(state, {dt_, override, sort}){
+    const productSort = (arr)=>{
+      let sort_arr = [4, 3, 4, 3, 4, 3];
+      let return_arr = [];
+      let checked = 0;
+      sort_arr.forEach((num, index)=>{
+          let created_obj = {
+            type:num === 4 ? 'quad' :'trio',
+            products:[],
+          }
+          created_obj.products = arr.splice(checked, num);
+          return_arr.push(created_obj)
+      })
+      return return_arr
+    }
+
+    state.allProducts = [...dt_];
+    state.mainSorted = [...productSort(dt_)];
+    console.log(state.allProducts,state.mainSorted)
   },
+}
+
+const actions = {
+  async getProductData(state){
+
+    const {ok , data, error} = await fetch("https://x8ki-letl-twmt.n7.xano.io/api:3ky6p00f/products").then(res=>res.json()).then(data=>{return data}).catch(error=>{ return {error}});
+    console.log(ok,data,error)
+    if(ok){
+        state.commit('setProducts', {dt_:data, override:true});
+      }else{
+        //
+      }
+  },
+  async clearProducts(state){
+    state.allProducts.splice(0, state.allProducts.length)
+  }
+
 }
 
 
 
 
 
-export {state, mutations, getters}
+export {state, mutations, getters, actions}
