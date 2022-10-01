@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { response } from 'express';
 
 const app = express();
 const products = require("../../products.json");
@@ -23,25 +23,19 @@ const getAll = ()=>{
     data:products,
   }
 }
-export default app.all('/products/:get_action/:product_id', async (req,res, next)=>{
-  let action = req.params['get_action'];
-  let prodID = req.params['product_id']
-  let response = {
+
+const response = {
     ok:false,
     data:null
   }
-  switch(action){
-    case "get_all":
-      response = getAll();
-      break
-    case "get_one":
-      if(prodID === undefined){break}
-      response = getOne(prodID)
-      break
-  }
-  res.send(response)
-})
 
+
+export default app.get('/products', async (req,res, next)=>{
+  console.log('at server')
+  let res_ = Object.create(response)
+  res_ = getAll();
+  res.send(res_)
+})
 
 
 

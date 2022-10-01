@@ -10,7 +10,7 @@
       <h2 class="product-name">{{ name }}</h2>
       <p class="product-description">{{ description }}</p>
       <div class="product-process">
-        <span class="product-pricing fs-5">{{
+        <span class="product-pricing">{{
             pricePrettier
         }}</span>
         <div class="add-cart-btn-sml" @click="addCartItem">
@@ -145,6 +145,7 @@ export default {
 
 .product-pricing {
   font-weight: 600;
+  font-size:1.25em
 }
 
 .preview-card{

@@ -30,14 +30,23 @@
               </div>
             </div>
           </div>
-          <div class="w-100 mt-3">
-            <p>{{product.description}}</p>
-          </div>
         </div>
+      </div>
+      <div class="w-100 mt-3 mb-5">
+          <h3 class="view-sub-heading mb-2">Description</h3>
+          <p class="product-description" >{{product.description}}</p>
+      </div>
+      <div class="w-100 mb-5">
+          <h3 class="view-sub-heading mb-2">Reviews</h3>
+          <p v-for="n in 5" :key="'dummy-review-'+n" class="product-description" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus natus provident nihil sint, molestiae repudiandae. Asperiores sint tempore sunt illum!</p>
+      </div>
+      <div class="w-100 mb-5">
+          <h3 class="view-sub-heading mb-2">More Products</h3>
+          <p v-for="n in 5" :key="'dummy-review-'+n" class="product-description" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus natus provident nihil sint, molestiae repudiandae. Asperiores sint tempore sunt illum!</p>
       </div>
     </div>
     <div class="cart-wrapper" :class="cartClass">
-      <EmbededCartVue :calc="'page-cart'" @cartClosed="closeCart"/>
+      <EmbededCartVue @cartClosed="closeCart"/>
     </div>
   </div>
 </template>
@@ -56,7 +65,9 @@ export default {
   async mounted(){
       this.device.width = window.innerWidth;
       let uid = window.location.search.replace('?uid=', '');
-      const {ok , data} = await this.$axios.$get(`/api/products/get_one/${uid}`).then(data=>{return data}).catch(error=>{return {}});
+      //const {ok , data} = await fetch("https://x8ki-letl-twmt.n7.xano.io/api:3ky6p00f/products/1?uid="+ uid).then(res=>res.json()).then(data=>{return data}).catch(error=>{return []});
+      console.log(uid)
+      const {data, ok, all_other_products } = await fetch("https://x8ki-letl-twmt.n7.xano.io/api:3ky6p00f/products/1?uid="+uid).then(res=>res.json()).then(data=>{return data}).catch(error=>{return error})
       if(ok){
           const { image, description, title , category, price, rating, id } = data;
           this.product.image = image;
@@ -137,137 +148,74 @@ export default {
 }
 </script>
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  width: 100%;
-  height: 100%;
-  background: #ededed;
-}
-
-.main-app-body {
-  width: 100%;
-  height: 100vh;
-  padding: 1% 8%;
-  padding-left: 130px;
-  display: flex;
-  align-items: flex-start;
-}
-
-.product-search-area {
-  width: 70%;
-  height: 100%;
-}
-
-.results-display-area {
-  width: 100%;
-  height: fit-content;
-  margin: 30px 0;
-}
-
-.results-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-  height: fit-content;
-  width: 100%;
-}
-
-.cart-wrapper {
-  width: 30%;
-  height: 100%;
-  transition:0.4s ease-in-out
-}
-
-.product-image{
-    background-size:contain;
-    background-position:center;
-    background-repeat:no-repeat;
-    background-color:white;
-    height:30vh;
-    border-radius:8px;
-}
-
-.product-title{
-    font-size:2.4em;
-    width:90%;
-    font-weight:700;
-}
-
-.product-category{
-    font-size:1.6em;
-    width:90%;
-    font-weight:500;
-    color: rgba(26, 31, 22, 0.5);
-    text-transform:capitalize;
-}
-
-.product-pricing{
-  font-weight:700;
-  margin-right:20px;
-}
-
-.product-rating{
-  margin-left:25px;
-  font-size:1.3rem;
-}
-
-.add-cart-btn{
-  background:#1A1F16;
-  color:white;
-  border-radius:10px;
-  display:flex;
-  gap:2px;
-  align-items:center;
-  font-size:1.1rem;
-  font-weight:600;
-  padding:4px 6px;
-  padding-right:12px;
-  text-transform:capitalize;
-  cursor:pointer;
-}
-
-@media (max-width: 1120px) {
-  .main-app-body {
-    padding-right: 20px;
+<style scoped>
+  .product-image{
+      background-size:contain;
+      background-position:center;
+      background-repeat:no-repeat;
+      background-color:white;
+      height:30vh;
+      border-radius:8px;
   }
 
-  .product-search-area {
-    width: 100%;
+  .product-title{
+      font-size:2.4em;
+      width:90%;
+      font-weight:700;
+  }
+
+  .product-category{
+      font-size:1.6em;
+      width:90%;
+      font-weight:500;
+      color: rgba(26, 31, 22, 0.5);
+      text-transform:capitalize;
+  }
+
+  .product-pricing{
+    font-weight:700;
+    margin-right:20px;
+  }
+
+  .product-rating{
+    margin-left:25px;
+    font-size:1.3rem;
+  }
+
+  .product-description{
+    font-size:1.2rem;
+  }
+
+  .view-sub-heading{
+    font-weight:700;
+  }
+
+  .add-cart-btn{
+    background:#1A1F16;
+    color:white;
+    border-radius:10px;
+    display:flex;
+    gap:2px;
+    align-items:center;
+    font-size:1.1rem;
+    font-weight:600;
+    padding:4px 6px;
+    padding-right:12px;
+    text-transform:capitalize;
+    cursor:pointer;
   }
 
   .cart-wrapper {
-    position: fixed;
-    right: -100vw;
-    background:white;
+    height:100%!important;
   }
-}
 
-@media (max-width: 968px) {
-  .show-cart{
-  width:100%;
-  top:0%;
-  right:0;
-  height:100%;
-  padding:0px;
-}
-.product-title{
-    font-size:2em;
-    width:100%;
-    font-weight:700;
-}
-
-}
-
-@media (max-width: 768px) {
-  .main-app-body {
-    padding-left: 90px;
-    padding-right: 10px;
+  @media (max-width: 968px) {
+  .product-title{
+      font-size:2em;
+      width:100%;
+      font-weight:700;
   }
-}
-</style>
+
+  }
+
+  </style>

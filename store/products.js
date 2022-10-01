@@ -1,67 +1,51 @@
 const state = ()=>({
-  cartItems:[],
+  allProducts:[],
+  mainSorted:[],
 })
 
 const getters = {
-  getCart(state){
-    return state.cartItems
+  getAllProducts(state){
+    return {
+      all:state.allProducts,
+      mSort:state.mainSorted
+    }
   },
 
-  getCartTotal(state){
-    return state.cartTotal
+  getOneProduct:async (state)=>{
+    return async ({uid, price})=>{
+      let prod_ = state.allProducts.find((item,index)=>{
+        if(item.uid === uid){
+          return item
+        }
+      })
+      let return_dt = {
+        ok:prod_ === undefined ? false : true,
+        data:prod_
+      }
+      //Pull from database -> useful
+      if(return_dt.ok){
+        return return_dt
+      }else{
+        const {data, ok } = await fetch("https://x8ki-letl-twmt.n7.xano.io/api:3ky6p00f/products/1?uid="+uid).then(res=>res.json()).then(data=>{return data}).catch(error=>{return error})
+        if(ok){
+          return_dt = data;
+        }
+        return return_dt
+      }
+    }
   }
+
+
 }
 
 const mutations = {
-  add(state, prodObj){
-    const {name , prodID, price, img } = prodObj;
-    //Find Item In Cart
-    let ind_ = state.cartItems.findIndex((item, index)=>{
-      return item.uid === prodID
-    })
-    let inArr = ind_ === -1 ? false : true;
-    if(inArr){
-      let focus = state.cartItems[ind_]
-      focus.quantity += 1;
-      state.cartItems[ind_] = focus
-    }else{
-      let n_Cart = {
-          quantity:1,
-          name:name,
-          uid:prodID,
-          price:price,
-          image:img
-      }
-      state.cartItems.push(n_Cart);
-    }
-    localStorage.setItem('ANCA02I8MX', JSON.stringify(state.cartItems));
-
-  },
-
-  remove(state, { prodID }){
-    state.cartItems = state.cartItems.filter((item,index)=>{
-      if(item.uid !== prodID){
-        return item
-      }
-    })
-    localStorage.setItem('ANCA02I8MX', JSON.stringify(state.cartItems));
-  },
-
-  clear(state){
-    state.cartItems = [];
-    localStorage.setItem('ANCA02I8MX', JSON.stringify([]));
-    console.log(state.cartItems)
-  },
-
-  loadFromLocal(state){
-    let saved_ = localStorage.getItem('ANCA02I8MX');
-    if(saved_ === null || saved_ === undefined){
-      return false
-    }else{
-      let json = JSON.parse(saved_)
-      state.cartItems = [...json]
-      return json
-    }
+  async setProducts(state, {dt_}){
+     if(dt_.ok){
+       state.allProducts.push(...products)
+       console.log(state.allProducts)
+     }else{
+       //Input Error Handling
+     }
   },
 }
 

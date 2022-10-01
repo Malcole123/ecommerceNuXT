@@ -1,21 +1,26 @@
 {
   "version": 2,
-  "routes": [
-    {
-      "src": "/api/products/",
-      "dest": "/server/api/products.js"
-    }
-  ],
   "builds": [
-    {
-      "src": "api/**/*.js",
-      "use": "@vercel/node"
-    },
     {
       "src": "nuxt.config.js",
       "use": "@nuxtjs/vercel-builder",
       "config": {
         "serverFiles": ["server/api/**"]
+      }
+    },
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/products/*",
+      "dest": "server/api/products.js",
+      "methods": ["GET"],
+      "headers": {
+        "Access-Control-Allow-Methods": "GET",
+        "Access-Control-Allow-Headers": "Content-Type"
       }
     }
   ]

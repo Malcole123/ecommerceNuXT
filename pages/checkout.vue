@@ -17,19 +17,3 @@ export default {
   },
 }
 </script>
-<style>
-  .main-app-body {
-  width: 100%;
-  height: 100vh;
-  padding: 1% 8%;
-  padding-left: 130px;
-  display: flex;
-  align-items: flex-start;
-}
-.product-info-area{
-  width:70%;
-}
-.cart-area{
-  width:30%;
-}
-</style>
