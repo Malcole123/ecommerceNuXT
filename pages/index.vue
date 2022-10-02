@@ -1,5 +1,5 @@
 <template>
-  <div class="main-app-body">
+  <MainWrapperVue _class="main-app-body">
     <TheSidebar @cartOpen="openCart"/>
     <div class="product-search-area">
       <MainSearchVue @searchChange="searchProducts" @searchEnd="endSearch"/>
@@ -21,7 +21,7 @@
     <div class="cart-wrapper" :class="cartClass">
       <EmbededCartVue :calc="'page-cart'" @cartClosed="closeCart"/>
     </div>
-  </div>
+  </MainWrapperVue>
 </template>
 
 <script>
@@ -29,18 +29,18 @@ import EmbededCartVue from "~/components/carts/EmbededCart.vue"
 import TheSidebar from "~/components/TheSidebar.vue"
 import MainSearchVue from "~/components/inputs/MainSearch.vue"
 import TheMainProductCard from "~/components/cards/TheMainProductCard.vue";
+import MainWrapperVue from "~/components/TopLevelWrappers/MainWrapper.vue";
 export default {
   name: "IndexPage",
 
   async mounted(){
-      await this.$store.dispatch('products/getProductData')
       this.device.width = window.innerWidth;
       let ps = await this.$store.getters['products/getAllProducts'];
       this.products.clean = ps['all'];
       this.products.sorted = ps['mSort'];
       this.searchActive = false;
   },
-  components: { TheSidebar, EmbededCartVue, MainSearchVue, TheMainProductCard },
+  components: { TheSidebar, EmbededCartVue, MainSearchVue, TheMainProductCard , MainWrapperVue},
   data(){
     return {
       device:{

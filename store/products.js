@@ -57,7 +57,7 @@ const mutations = {
 
     state.allProducts = [...dt_];
     state.mainSorted = [...productSort(dt_)];
-    console.log(state.allProducts,state.mainSorted)
+    //console.log(state.allProducts,state.mainSorted)
   },
 }
 
@@ -65,7 +65,6 @@ const actions = {
   async getProductData(state){
 
     const {ok , data, error} = await fetch("https://x8ki-letl-twmt.n7.xano.io/api:3ky6p00f/products").then(res=>res.json()).then(data=>{return data}).catch(error=>{ return {error}});
-    console.log(ok,data,error)
     if(ok){
         state.commit('setProducts', {dt_:data, override:true});
       }else{

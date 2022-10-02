@@ -58,6 +58,23 @@ body {
   grid-template-columns: 2fr 1fr 1fr;
 }
 
+.standalone-component{
+  height:100vh;
+  padding-top:20px;
+  padding-bottom:50px;
+}
+
+.standalone-main{
+  border-radius:15px;
+}
+
+.app-list{
+  list-style-type:none;
+  padding:0px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
 @media (max-width: 1120px) {
   .main-app-body {
     padding-right: 20px;

@@ -13,8 +13,8 @@
             <h2>{{"$ " + cartTotalCalc_ }}</h2>
           </div>
           <div class="w-100 mt-1">
-              <NuxtLink :to="checkoutRoute"><button type="button" class="w-100 btn btn-dark">Checkout</button></NuxtLink>
-              <button type="button" class="w-100 btn btn-outline-dark mt-1" @click="clearCart">Clear</button>
+              <NuxtLink :to="checkoutRoute"><DarkButtonVue text="Checkout" type="button"/></NuxtLink>
+              <DarkOutlineButton text="Clear" type="button" @btnClicked="clearCart" class="mt-2"/>
           </div>
       </div>
       <div class="empty-cart-display" v-if="currentCart.length === 0">
@@ -24,6 +24,8 @@
 </template>
 <script>
 import CartCard from '../cards/CartCard.vue';
+import DarkButtonVue from '../Buttons/DarkButton.vue';
+import DarkOutlineButton from '../Buttons/DarkOutlineButton.vue';
 export default {
     emits:['cartClosed'],
     props: {
@@ -37,7 +39,7 @@ export default {
     },
     mounted() {
         //Load Cart from Local
-        this.$store.commit("cart/loadFromLocal");
+        //this.$store.commit("cart/loadFromLocal");
     },
     data() {
         return {
@@ -64,7 +66,7 @@ export default {
         return cart_
       },
       checkoutRoute(){
-        return '/checkout/address'
+        return '/checkout/review'
       }
     },
     methods:{
@@ -79,7 +81,7 @@ export default {
           this.$emit('cartClosed')
         }
     },
-    components: { CartCard }
+    components: { CartCard, DarkButtonVue, DarkOutlineButton }
 }
 </script>
 <style scoped>

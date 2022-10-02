@@ -1,5 +1,16 @@
 const state = ()=>({
   cartItems:[],
+  delivery:{
+    address:{
+      name:"",
+      street:"",
+      city:"",
+      state:"",
+      country:"",
+      default:false
+    },
+    cost:0,
+  }
 })
 
 const getters = {
@@ -59,13 +70,19 @@ const mutations = {
     console.log(state.cartItems)
   },
 
+  setfromStorage(state, {cartItems}){
+    state.cartItems = [...cartItems]
+  }
+}
+
+const actions = {
   loadFromLocal(state){
     let saved_ = localStorage.getItem('ANCA02I8MX');
     if(saved_ === null || saved_ === undefined){
       return false
     }else{
       let json = JSON.parse(saved_)
-      state.cartItems = [...json]
+      state.commit('setfromStorage', {cartItems:json})
       return json
     }
   },
@@ -74,5 +91,4 @@ const mutations = {
 
 
 
-
-export {state, mutations, getters}
+export {state, mutations, getters, actions}

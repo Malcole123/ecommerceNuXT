@@ -1,21 +1,14 @@
 <template>
   <div class="cart" :class="calc">
-    <div class="w-100 d-flex justify-content-between">
-      <h2 class="cart-heading">Cart</h2>
-      <button type="button" class="btn btn-close d-lg-none d-md-block d-sm-block" @click="closeCart">Close&nbsp;&#10006;</button>
-    </div>
       <div class="cart-display" v-if="currentCart.length > 0">
         <CartCard v-for="(cItem,index) in currentCart" :key="'cart-list-item' + index" :prodName="cItem.name" :prodImg="cItem.image" :quantity="cItem.quantity" :price="cItem.price" :prodID="cItem.uid"/>
       </div>
-      <div class="cart-checkout" v-if="currentCart.length > 0">
+      <div class="cart-checkout mt-4" v-if="currentCart.length > 0">
           <div class="w-100 d-flex justify-content-between">
             <h2>Total</h2>
             <h2>{{"$ " + cartTotalCalc_ }}</h2>
           </div>
-          <div class="w-100 mt-1">
-              <NuxtLink to="/checkout"><button type="button" class="w-100 btn btn-dark">Checkout</button></NuxtLink>
-              <button type="button" class="w-100 btn btn-outline-dark mt-1" @click="clearCart">Clear</button>
-          </div>
+
       </div>
       <div class="empty-cart-display" v-if="currentCart.length === 0">
         <strong>Your Cart is Empty</strong>
@@ -24,6 +17,8 @@
 </template>
 <script>
 import CartCard from '../cards/CartCard.vue';
+import DarkButtonVue from '../Buttons/DarkButton.vue';
+import DarkOutlineButton from '../Buttons/DarkOutlineButton.vue';
 export default {
     emits:['cartClosed'],
     props: {
@@ -37,7 +32,6 @@ export default {
     },
     mounted() {
         //Load Cart from Local
-        this.$store.commit("cart/loadFromLocal");
     },
     data() {
         return {
@@ -62,6 +56,9 @@ export default {
       currentCart(){
         let cart_  = this.$store.getters["cart/getCart"];
         return cart_
+      },
+      checkoutRoute(){
+        return '/checkout/review'
       }
     },
     methods:{
@@ -76,30 +73,14 @@ export default {
           this.$emit('cartClosed')
         }
     },
-    components: { CartCard }
+    components: { CartCard, DarkButtonVue, DarkOutlineButton }
 }
 </script>
 <style scoped>
 .cart {
   width: 100%;
-  height: 96vh;
+  height:fit-content;
   background: white;
-  position: sticky;
-  top: 1%;
-  border-radius: 8px;
-  padding: 10px 14px;
-}
-
-@media(max-width:968px){
-  .show-cart .cart{
-    width:100%;
-    height:100%;
-    position:static;
-    top:0%;
-    left:0%;
-    right:0%;
-    border-radius:0px;
-  }
 }
 
 .cart-heading{
@@ -109,8 +90,6 @@ export default {
 .cart-display{
   margin-top:15px;
   width:100%;
-  height:75%;
-  overflow-y:scroll;
 }
 
 .cart-checkout{
