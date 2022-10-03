@@ -3,7 +3,7 @@
   "cleanUrls":true,
   "functions":{
     "api/products.js":{
-        "memory":3008,
+        "memory":1024,
         "maxDuration":9
     }
   },
