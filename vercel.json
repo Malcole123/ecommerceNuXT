@@ -14,12 +14,6 @@
       "use": "@vercel/node"
     }
   ],
-  "functions":{
-    "api/*.js":{
-        "memory":512,
-        "maxDuration":9
-    }
-  },
   "trailingSlash":false,
   "installCommand":"npm install",
   "headers":[
