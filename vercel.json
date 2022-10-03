@@ -9,7 +9,7 @@
   },
   "installCommand":"npm install",
   "trailingSlash":false,
-  "outputDirectory":".nuxt"
+  "outputDirectory":"nuxt-dist"
 
 }
 
