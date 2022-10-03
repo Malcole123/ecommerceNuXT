@@ -43,7 +43,6 @@
     }
   ],
   "installCommand":"npm install",
-  "outputDirectory":"dist/",
   "trailingSlash":false
 
 }
