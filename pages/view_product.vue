@@ -65,9 +65,9 @@ export default {
   name: "ViewProductPage",
   async mounted(){
       this.device.width = window.innerWidth;
-      let uid = window.location.search.replace('?uid=', '');
+      let uid = new URLSearchParams(window.location.search).get('uid');
       //const {ok , data} = await fetch("https://x8ki-letl-twmt.n7.xano.io/api:3ky6p00f/products/1?uid="+ uid).then(res=>res.json()).then(data=>{return data}).catch(error=>{return []});
-      const {data, ok, all_other_products } = await fetch("https://x8ki-letl-twmt.n7.xano.io/api:3ky6p00f/products/1?uid="+uid).then(res=>res.json()).then(data=>{return data}).catch(error=>{return error})
+      const {data, ok, all_other_products } = await fetch("/api/products/"+uid).then(res=>res.json()).then(data=>{return data}).catch(error=>{return error})
       if(ok){
           const { image, description, title , category, price, rating, id } = data;
           this.product.image = image;

@@ -1,0 +1,44 @@
+[
+  {
+    "name": "orders",
+    "path": "/orders",
+    "component": "/home/developer/Documents/WebDev/EcomProject/pages/orders.vue",
+    "chunkName": "pages/orders",
+    "_name": "_73032d16"
+  },
+  {
+    "name": "view_product",
+    "path": "/view_product",
+    "component": "/home/developer/Documents/WebDev/EcomProject/pages/view_product.vue",
+    "chunkName": "pages/view_product",
+    "_name": "_517dcde5"
+  },
+  {
+    "name": "checkout-address",
+    "path": "/checkout/address",
+    "component": "/home/developer/Documents/WebDev/EcomProject/pages/checkout/address.vue",
+    "chunkName": "pages/checkout/address",
+    "_name": "_63f0bdbb"
+  },
+  {
+    "name": "checkout-payment",
+    "path": "/checkout/payment",
+    "component": "/home/developer/Documents/WebDev/EcomProject/pages/checkout/payment.vue",
+    "chunkName": "pages/checkout/payment",
+    "_name": "_5a37facd"
+  },
+  {
+    "name": "checkout-review",
+    "path": "/checkout/review",
+    "component": "/home/developer/Documents/WebDev/EcomProject/pages/checkout/review.vue",
+    "chunkName": "pages/checkout/review",
+    "_name": "_39f352e1"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/home/developer/Documents/WebDev/EcomProject/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_719f24f2"
+  }
+]

@@ -1,0 +1,80 @@
+{
+  "NuxtLogo": {
+    "description": "Auto imported from components/NuxtLogo.vue"
+  },
+  "TheSidebar": {
+    "description": "Auto imported from components/TheSidebar.vue"
+  },
+  "ButtonsAddCartButton": {
+    "description": "Auto imported from components/Buttons/AddCartButton.vue"
+  },
+  "ButtonsDarkButton": {
+    "description": "Auto imported from components/Buttons/DarkButton.vue"
+  },
+  "ButtonsDarkOutlineButton": {
+    "description": "Auto imported from components/Buttons/DarkOutlineButton.vue"
+  },
+  "ButtonsViewCartBtn": {
+    "description": "Auto imported from components/Buttons/ViewCartBtn.vue"
+  },
+  "FormsAddressFormVue": {
+    "description": "Auto imported from components/Forms/AddressFormVue.vue"
+  },
+  "FormsPaymentForm": {
+    "description": "Auto imported from components/Forms/PaymentForm.vue"
+  },
+  "ModalsLargeModalBase": {
+    "description": "Auto imported from components/Modals/LargeModalBase.vue"
+  },
+  "TopLevelWrappersMainWrapper": {
+    "description": "Auto imported from components/TopLevelWrappers/MainWrapper.vue"
+  },
+  "TopLevelWrappersProtectedContentWrapper": {
+    "description": "Auto imported from components/TopLevelWrappers/ProtectedContentWrapper.vue"
+  },
+  "CardsCartCard": {
+    "description": "Auto imported from components/cards/CartCard.vue"
+  },
+  "CardsTheMainProductCard": {
+    "description": "Auto imported from components/cards/TheMainProductCard.vue"
+  },
+  "CartsCheckoutCart": {
+    "description": "Auto imported from components/carts/CheckoutCart.vue"
+  },
+  "CartsCheckoutSummary": {
+    "description": "Auto imported from components/carts/CheckoutSummary.vue"
+  },
+  "CartsEmbededCart": {
+    "description": "Auto imported from components/carts/EmbededCart.vue"
+  },
+  "IconsHalfRatingIcon": {
+    "description": "Auto imported from components/icons/HalfRatingIcon.vue"
+  },
+  "IconsHomeIcon": {
+    "description": "Auto imported from components/icons/HomeIcon.vue"
+  },
+  "IconsMenuIcon": {
+    "description": "Auto imported from components/icons/MenuIcon.vue"
+  },
+  "IconsRatingIcon": {
+    "description": "Auto imported from components/icons/RatingIcon.vue"
+  },
+  "IconsTrashIcon": {
+    "description": "Auto imported from components/icons/TrashIcon.vue"
+  },
+  "InputsMainSearch": {
+    "description": "Auto imported from components/inputs/MainSearch.vue"
+  },
+  "ButtonsNavigationButtonsBackButton": {
+    "description": "Auto imported from components/Buttons/NavigationButtons/BackButton.vue"
+  },
+  "InputsFormInputsCheckboxInputVue": {
+    "description": "Auto imported from components/inputs/FormInputs/CheckboxInputVue.vue"
+  },
+  "InputsFormWrapper": {
+    "description": "Auto imported from components/inputs/FormInputs/FormWrapper.vue"
+  },
+  "InputsFormInputsTextInput": {
+    "description": "Auto imported from components/inputs/FormInputs/TextInput.vue"
+  }
+}
