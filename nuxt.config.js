@@ -1,4 +1,5 @@
 export default {
+  buildDir:"nuxt-dist",
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'EcomProject',
@@ -55,10 +56,5 @@ export default {
   publicRuntimeConfig:{
     productURL:process.env.NUXT_PRODUCT_API
   },
-
-  // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
-  },
-  buildDir:"nuxt-dist",
   target:'server'
 }

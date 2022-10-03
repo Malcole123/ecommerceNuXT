@@ -1,15 +1,16 @@
 {
-  "version": 2,
   "buildCommand":"nuxt build",
   "functions":{
-    "api/products.js":{
+    "api/*.js":{
         "memory":512,
         "maxDuration":9
-    }
+    },
+    "pages/**/*.js":{
+      "memory":512,
+      "maxDuration":9
+  }
   },
   "installCommand":"npm install",
-  "trailingSlash":false,
   "outputDirectory":"nuxt-dist"
-
 }
 
