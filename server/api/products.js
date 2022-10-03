@@ -24,14 +24,15 @@ const getAll = ()=>{
   }
 }
 
-const response = {
+
+
+export default app.get('/products', async (req,res, next)=>{
+  console.log('at server');
+  const response = {
     ok:false,
     data:null
   }
 
-
-export default app.get('/products', async (req,res, next)=>{
-  console.log('at server')
   let res_ = Object.create(response)
   res_ = getAll();
   res.send(res_)

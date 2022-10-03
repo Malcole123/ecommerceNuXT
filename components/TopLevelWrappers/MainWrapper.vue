@@ -17,7 +17,6 @@ export default {
     }
   },
   async mounted(){
-    await this.$store.dispatch('products/getProductData');
     await this.$store.dispatch('user/loadfromLocal');
     await this.$store.dispatch("cart/loadFromLocal");
     this.$emit('mounted')

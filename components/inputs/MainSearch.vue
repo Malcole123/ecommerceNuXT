@@ -7,7 +7,6 @@
       type="text"
       placeholder="Apple Watch, Samsung S21, Macbook Pro, ..."
       v-model.trim="search"
-      @keydown="searchActive"
       @keyup="searchActive"
       @blur="endSearch"
     />
@@ -25,13 +24,7 @@ export default {
     },
     methods:{
       searchActive(){
-        this.count += 1;
-        if(this.offset - this.count === 0){
-          this.$emit('searchChange', {currentInput:this.search});
-          this.count = 0;
-          return true
-        }
-
+        this.$emit('searchChange', {currentInput:this.search});
       },
       endSearch(){
         if(this.search.length > 0){

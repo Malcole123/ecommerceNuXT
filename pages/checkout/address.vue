@@ -52,7 +52,6 @@ export default {
   methods:{
     async successHandle(){
       let dt_ = this.formModel;
-      console.log(dt_)
       const storeCommit  = await this.$store.commit("user/addAddress",dt_);
       this.$router.push('/checkout/review')
     },

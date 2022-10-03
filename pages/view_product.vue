@@ -1,5 +1,5 @@
 <template>
-  <div class="main-app-body">
+  <MainWrapperVue :_class="'main-app-body'">
     <TheSidebar @cartOpen="openCart"/>
     <div class="product-search-area">
       <div class="w-100">
@@ -48,7 +48,7 @@
     <div class="cart-wrapper" :class="cartClass">
       <EmbededCartVue @cartClosed="closeCart"/>
     </div>
-  </div>
+  </MainWrapperVue>
 </template>
 
 <script>
@@ -59,6 +59,7 @@ import TheMainProductCard from "~/components/cards/TheMainProductCard.vue";
 import RatingIcon from "../components/icons/RatingIcon.vue";
 import HalfRatingIcon from "../components/icons/HalfRatingIcon.vue";
 import AddCartButton from "~/components/Buttons/AddCartButton.vue";
+import MainWrapperVue from "~/components/TopLevelWrappers/MainWrapper.vue";
 
 export default {
   name: "ViewProductPage",
@@ -66,7 +67,6 @@ export default {
       this.device.width = window.innerWidth;
       let uid = window.location.search.replace('?uid=', '');
       //const {ok , data} = await fetch("https://x8ki-letl-twmt.n7.xano.io/api:3ky6p00f/products/1?uid="+ uid).then(res=>res.json()).then(data=>{return data}).catch(error=>{return []});
-      console.log(uid)
       const {data, ok, all_other_products } = await fetch("https://x8ki-letl-twmt.n7.xano.io/api:3ky6p00f/products/1?uid="+uid).then(res=>res.json()).then(data=>{return data}).catch(error=>{return error})
       if(ok){
           const { image, description, title , category, price, rating, id } = data;
@@ -83,7 +83,7 @@ export default {
         console.log('error')
       }
   },
-  components: { TheSidebar, EmbededCartVue, MainSearchVue, TheMainProductCard, RatingIcon, HalfRatingIcon, AddCartButton },
+  components: { TheSidebar, EmbededCartVue, MainSearchVue, TheMainProductCard, RatingIcon, HalfRatingIcon, AddCartButton , MainWrapperVue},
   data(){
     return {
       device:{

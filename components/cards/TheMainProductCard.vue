@@ -112,8 +112,8 @@ export default {
     highlighter(){
         if(this.matchStr.length > 0){
           return {
-            regular:this.name.substr(this.matchStr.length-1, this.name.length-1),
-            highlight:this.matchStr.substr(0, this.matchStr.length -1)
+            regular:this.name.substr(this.matchStr.length, this.name.length-1),
+            highlight:this.matchStr.substr(0, this.matchStr.length)
           }
         }else{
           return {

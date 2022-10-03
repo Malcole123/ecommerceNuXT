@@ -4,7 +4,7 @@ const state = ()=>({
 })
 
 const getters = {
-  getAllProducts(state){
+  async getAllProducts(state){
     return {
       all:state.allProducts,
       mSort:state.mainSorted
@@ -39,7 +39,15 @@ const getters = {
 }
 
 const mutations = {
-  async setProducts(state, {dt_, override, sort}){
+  async setProducts(state, {dt_, sortDt_, override, sort}){
+    state.allProducts = dt_;
+    state.mainSorted = sortDt_;
+    //console.log(state.allProducts,state.mainSorted)
+  },
+}
+
+const actions = {
+  async getProductData(state){
     const productSort = (arr)=>{
       let sort_arr = [4, 3, 4, 3, 4, 3];
       let return_arr = [];
@@ -55,20 +63,15 @@ const mutations = {
       return return_arr
     }
 
-    state.allProducts = [...dt_];
-    state.mainSorted = [...productSort(dt_)];
-    //console.log(state.allProducts,state.mainSorted)
-  },
-}
 
-const actions = {
-  async getProductData(state){
 
     const {ok , data, error} = await fetch("https://x8ki-letl-twmt.n7.xano.io/api:3ky6p00f/products").then(res=>res.json()).then(data=>{return data}).catch(error=>{ return {error}});
     if(ok){
-        state.commit('setProducts', {dt_:data, override:true});
+        state.commit('setProducts', {dt_:data,sortDt_:productSort(data),override:true});
+
       }else{
         //
+        console.log(error)
       }
   },
   async clearProducts(state){

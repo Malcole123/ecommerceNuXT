@@ -6,19 +6,14 @@ const state = ()=>({
       name:"",
       email:"",
       phone_number:"",
-      address:[/*{
-        name:"",
-        street:"",
-        city:"",
-        state:"",
-        country:"",
-        default:false
-      }*/],
+      address:[],
       payment:[{ /*NOT SUGGESTED FOR PRODUCTION --ONLY FOR TEST PURPOSES--*/
-        ccNumber:"",
-        ccv:"",
-        expDate:"",
-        ccHoldName:""
+        ccNumber:"378282246310005",
+        ccv:"776",
+        expDate:"02/36",
+        ccHoldName:"",
+        ccType:"Visa",
+        default:true,
       }]
     }
 })

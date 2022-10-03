@@ -88,6 +88,7 @@ export default {
       return {
         clean:{
           address:[],
+          payment:[],
         },
         selected:{
           address:{
@@ -98,11 +99,19 @@ export default {
             state:"",
             default:false
           },
+          payment:{
+            ccNumber:"",
+            ccv:"",
+            expDate:"",
+            ccHoldName:""
+          },
           cart:{},
         },
         state:{
           addressOk:false,
+          paymentOk:false,
           addressInd:0,
+          paymentInd:0,
         }
       }
     },
@@ -115,42 +124,57 @@ export default {
 `${this.selected.address.country},`
         ]
         },
-        addressStatus(){
 
-        }
     },
     methods:{
         async checkoutCheck(){
             //Promise to link to live data later
           const checkoutDetails = await this.$store.getters["user/myCheckoutDetails"];
           this.clean.address = checkoutDetails.address;
+          this.clean.payment = checkoutDetails.payment;
+          console.log(checkoutDetails, 'helloworld')
           //Set to instance
           this.updateCheckoutAddress(0);
-          console.log(checkoutDetails.cartItems)
+          this.updateSelectedPayment(0)
+
             //Set address from selected address based on id -> Update later to check by default;
         },
-        addressSelect(arr_ , { getDef , id_}){
+        dataSelect(arr_ , { getDef , id_, where, confirm}){
           let sel_ = arr_[id_];
+          //Select Data from Array and use keys to set data
           let retObj = {
             ok:sel_ === undefined ? false : true,
-            address:sel_
+            data:sel_,
+            where,
+            confirm
           }
           return retObj
         },
-        setAddress({ok, address}){
+        setData({ok, data, where, confirm}){
           if(ok){
-            let keys_ = Object.keys(address);
+            let keys_ = Object.keys(data);
               keys_.forEach((item,index)=>{
-                this.selected.address[item] = address[item];
+                this.selected[where][item] = data[item];
             })
-            this.state.addressOk = true;
+            this.state[confirm] = true;
           }else{
-            this.state.addressOk = false;
+            this.state[confirm] = false;
           }
 
         },
+        paymentSelect(arr_ , { getDef , id_}){
+          let sel_ = arr_[id_];
+          let retObj = {
+            ok:sel_ === undefined ? false : true,
+            payment:sel_
+          }
+          return retObj
+        },
         updateCheckoutAddress(id_){
-          this.setAddress(this.addressSelect(this.clean.address, {id_:id_}))
+          this.setData(this.dataSelect(this.clean.address, {id_:id_, where:'address',confirm:'addressOk'}))
+        },
+        updateSelectedPayment(id_){
+          this.setData(this.dataSelect(this.clean.address, {id_:id_, where:'payment',confirm:'paymentOk'}))
         },
         confirmUpdate(){
           this.updateCheckoutAddress(this.state.addressInd);

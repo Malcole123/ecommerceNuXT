@@ -3,19 +3,21 @@
     <TheSidebar @cartOpen="openCart"/>
     <div class="product-search-area">
       <MainSearchVue @searchChange="searchProducts" @searchEnd="endSearch"/>
-      <div class="results-display-area">
+      <div class="results-display-area" v-if="productsLoaded">
         <div class="results-wrapper" id="filteredResults" v-if="searchActive">
           <div class="product-display-area display-quad">
-            <TheMainProductCard v-for="(prod,i) in products.filtered" :key="'prod_f_item_' + i" :name="prod.title" :image="prod.image" :description="prod.description" :price="prod.price" :uid="`${prod.uid}`" @productAdded="addProduct" :matchStr="search" :highlight="true"/>
+            <TheMainProductCard v-for="(prod,i) in products.filtered" :key="'prod_f_item_' + i" :name="prod.title" :image="prod.image" :description="prod.description" :price="prod.price" :uid="`${prod.uid}`" :matchStr="search" :highlight="true"/>
           </div>
-
         </div>
         <div class="results-wrapper" id="unfilteredResults" v-if="!searchActive">
           <div class="product-display-area" :class="item.type === 'quad' ? 'display-quad' :'display-trio'"  v-for="(item,index) in products.sorted" :key="'prod_uf_item' + index">
-            <TheMainProductCard v-for="(prod,i) in item.products" :key="'prod_item_' + i" :name="prod.title" :image="prod.image" :description="prod.description" :price="prod.price" :uid="`${prod.uid}`" @productAdded="addProduct" :highlight="false"/>
+            <TheMainProductCard v-for="(prod,i) in item.products" :key="'prod_item_' + i" :name="prod.title" :image="prod.image" :description="prod.description" :price="prod.price" :uid="`${prod.uid}`" :highlight="false"/>
           </div>
 
         </div>
+      </div>
+      <div class="empty-results-display h-100 d-flex flex-column g-2 align-items-center mt-4" v-if="searchActive && products.filtered.length === 0">
+          No Results Found&nbsp;&nbsp;&nbsp;(:-{
       </div>
     </div>
     <div class="cart-wrapper" :class="cartClass">
@@ -34,13 +36,33 @@ export default {
   name: "IndexPage",
 
   async mounted(){
-      this.device.width = window.innerWidth;
-      let ps = await this.$store.getters['products/getAllProducts'];
-      this.products.clean = ps['all'];
-      this.products.sorted = ps['mSort'];
+    const productSort = (arr)=>{
+      let sort_arr = [4, 3, 4, 3, 4, 3];
+      let return_arr = [];
+      let checked = 0;
+      sort_arr.forEach((num, index)=>{
+          let created_obj = {
+            type:num === 4 ? 'quad' :'trio',
+            products:[],
+          }
+          created_obj.products = arr.splice(checked, num);
+          return_arr.push(created_obj)
+      })
+      return return_arr
+    }
+    const {ok , data, error} = await fetch("https://x8ki-letl-twmt.n7.xano.io/api:3ky6p00f/products").then(res=>res.json()).then(data=>{return data}).catch(error=>{ return {error}});
+      let ps = data;
+      if(ok){
+        this.products.clean = [...data];
+        this.products.sorted = productSort(data);
+        console.log(this.products.clean)
+      }else{
+        //console.log(error)
+      }
       this.searchActive = false;
+      this.productsLoaded = ok;
   },
-  components: { TheSidebar, EmbededCartVue, MainSearchVue, TheMainProductCard , MainWrapperVue},
+  components: { TheSidebar, EmbededCartVue, MainSearchVue, TheMainProductCard, MainWrapperVue },
   data(){
     return {
       device:{
@@ -55,21 +77,17 @@ export default {
       cart:[],
       cartClass:"",
       search:"",
-      searchActive:false
+      searchActive:false,
+      productsLoaded:true,
+
     }
-  },
-  computed:{
-      searchList(){
-
-
-      },
   },
   watch:{
 
   },
   methods:{
-    addProduct(){
-      console.log("pos")
+    setPage(){
+
     },
     openCart(){
       this.cartToggle('open')
@@ -89,9 +107,12 @@ export default {
 
     },
     searchProducts({currentInput}){
-      //Swap for plugin
+      //Swap for plugin;
+      this.search = currentInput;
+      let copy_ = this.products.clean;
+      console.log(copy_)
       const compare = (str_1, str_2)=>{
-            if(str_1 === str_2){
+            if(str_1.toLowerCase() === str_2.toLowerCase()){
               return true
             }else{
               return false
@@ -99,8 +120,6 @@ export default {
       }
 
       this.searchActive = true;
-      this.search = currentInput;
-      let copy_ = this.products.clean;
       this.products.filtered = copy_.filter((it,ind)=>{
           if(compare(it.title.substr(0, this.search.length), this.search)){
             return it
@@ -111,6 +130,6 @@ export default {
       this.searchActive = false;
     }
 
-  }
+  },
 }
 </script>
