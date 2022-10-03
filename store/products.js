@@ -48,24 +48,6 @@ const mutations = {
 
 const actions = {
   async getProductData(state){
-    const productSort = (arr)=>{
-      let sort_arr = [4, 3, 4, 3, 4, 3];
-      let return_arr = [];
-      let checked = 0;
-      sort_arr.forEach((num, index)=>{
-          let created_obj = {
-            type:num === 4 ? 'quad' :'trio',
-            products:[],
-          }
-          created_obj.products = arr.splice(checked, num);
-          return_arr.push(created_obj)
-      })
-      return return_arr
-    }
-
-
-
-    const {ok , data, error} = await fetch("https://x8ki-letl-twmt.n7.xano.io/api:3ky6p00f/products").then(res=>res.json()).then(data=>{return data}).catch(error=>{ return {error}});
     if(ok){
         state.commit('setProducts', {dt_:data,sortDt_:productSort(data),override:true});
 

@@ -27,12 +27,10 @@ const getAll = ()=>{
 
 
 export default app.get('/products', async (req,res, next)=>{
-  console.log('at server');
   const response = {
     ok:false,
     data:null
   }
-
   let res_ = Object.create(response)
   res_ = getAll();
   res.send(res_)

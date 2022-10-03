@@ -50,12 +50,11 @@ export default {
       })
       return return_arr
     }
-    const {ok , data, error} = await fetch("https://x8ki-letl-twmt.n7.xano.io/api:3ky6p00f/products").then(res=>res.json()).then(data=>{return data}).catch(error=>{ return {error}});
+    const {ok , data, error} = await fetch("/api/products").then(res=>res.json()).then(data=>{return data}).catch(error=>{ return {error}});
       let ps = data;
       if(ok){
         this.products.clean = [...data];
         this.products.sorted = productSort(data);
-        console.log(this.products.clean)
       }else{
         //console.log(error)
       }
@@ -110,7 +109,6 @@ export default {
       //Swap for plugin;
       this.search = currentInput;
       let copy_ = this.products.clean;
-      console.log(copy_)
       const compare = (str_1, str_2)=>{
             if(str_1.toLowerCase() === str_2.toLowerCase()){
               return true
