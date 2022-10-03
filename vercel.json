@@ -43,7 +43,8 @@
     }
   ],
   "installCommand":"npm install",
-  "trailingSlash":false
+  "trailingSlash":false,
+  "outpDirectory":".nuxt/"
 
 }
 
