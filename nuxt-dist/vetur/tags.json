@@ -14,6 +14,9 @@
   "ButtonsDarkOutlineButton": {
     "description": "Auto imported from components/Buttons/DarkOutlineButton.vue"
   },
+  "ButtonsQuantityControl": {
+    "description": "Auto imported from components/Buttons/QuantityControl.vue"
+  },
   "ButtonsViewCartBtn": {
     "description": "Auto imported from components/Buttons/ViewCartBtn.vue"
   },
@@ -23,11 +26,11 @@
   "FormsPaymentForm": {
     "description": "Auto imported from components/Forms/PaymentForm.vue"
   },
-  "ModalsLargeModalBase": {
-    "description": "Auto imported from components/Modals/LargeModalBase.vue"
-  },
   "InteractiveCreditCard": {
     "description": "Auto imported from components/Interactive/CreditCard.vue"
+  },
+  "ModalsLargeModalBase": {
+    "description": "Auto imported from components/Modals/LargeModalBase.vue"
   },
   "TopLevelWrappersMainWrapper": {
     "description": "Auto imported from components/TopLevelWrappers/MainWrapper.vue"

@@ -63,7 +63,23 @@ const mutations = {
     })
     localStorage.setItem('ANCA02I8MX', JSON.stringify(state.cartItems));
   },
+  increaseQuantity(state, {prodID, index}){
+      [...state.cartItems].map((item,i)=>{
+        if(item.uid === prodID && index === i){
+            item.quantity += 1;
+        }
+      })
+      localStorage.setItem('ANCA02I8MX', JSON.stringify(state.cartItems));
 
+  },
+  decreaseQuantity(state, {prodID, index}){
+    [...state.cartItems].map((item,i)=>{
+      if(item.uid === prodID && index === i){
+          item.quantity -= 1;
+      }
+    })
+    localStorage.setItem('ANCA02I8MX', JSON.stringify(state.cartItems));
+},
   clear(state){
     state.cartItems = [];
     localStorage.setItem('ANCA02I8MX', JSON.stringify([]));

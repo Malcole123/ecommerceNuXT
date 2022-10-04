@@ -3,10 +3,17 @@
         <div class="cart-card-image" :style="`background-image:url('${prodImg}')`"></div>
         <div class="cart-card-detail">
           <p>{{prodName}}</p>
-          <strong>{{`${quantity} x $ ${pricePrettier}`}}</strong>
+          <div class="row w-100">
+              <div class="col-lg-6">
+                <strong>{{pricePrettier}}</strong>
+              </div>
+              <div class="col-lg-6">
+                <slot></slot>
+              </div>
+          </div>
         </div>
         <div class="d-flex justify-content-end align-items-center">
-          <div class="d-block" @click="removeItem" style="cursor:pointer">
+          <div class="d-block" @click="mutateCart('remove')" style="cursor:pointer">
             <TrashIcon/>
           </div>
         </div>
@@ -17,7 +24,7 @@
 import anymatch from 'anymatch';
 import TrashIcon from '../icons/TrashIcon.vue';
 export default ({
-  components:{ TrashIcon,},
+  components:{ TrashIcon},
   emits:['deleteClicked'],
   props:{
     prodID:{
@@ -54,8 +61,17 @@ export default ({
   }
  },
  methods:{
-    removeItem(){
-      this.$emit('deleteClicked')
+    mutateCart(type){
+      //Expected types => remove , increase_item, decrease_item
+      switch(type){
+        case "remove":
+            this.$emit('deleteClicked')
+          break
+        case "increase_item":
+          break
+        case "decrease_item":
+          break
+      }
     }
  }
 })
@@ -66,7 +82,7 @@ export default ({
   .cart-card{
     width:100%;
     display:grid;
-    grid-template-columns:1fr 3fr 1fr;
+    grid-template-columns:2fr 5fr 1fr;
     gap:8px;
     padding:10px 5px;
   }
@@ -83,5 +99,6 @@ export default ({
 
   .cart-card-detail{
     height:100%;
+    width:100%;
   }
 </style>

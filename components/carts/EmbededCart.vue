@@ -5,7 +5,9 @@
       <button type="button" class="btn btn-close d-lg-none d-md-block d-sm-block" @click="closeCart">Close&nbsp;&#10006;</button>
     </div>
       <div class="cart-display" v-if="currentCart.length > 0">
-        <CartCard v-for="(cItem,index) in currentCart" :key="'cart-list-item' + index" :prodName="cItem.name" :prodImg="cItem.image" :quantity="cItem.quantity" :price="cItem.price" :prodID="cItem.uid" @deleteClicked="removeCartItem(cItem.uid)"/>
+        <CartCard v-for="(cItem,index) in currentCart" :key="'cart-list-item' + index" :prodName="cItem.name" :prodImg="cItem.image" :quantity="cItem.quantity" :price="cItem.price" :prodID="cItem.uid" @deleteClicked="removeCartItem(cItem.uid)">
+          <QuantityControlVue style="margin-left:auto;" :quantity="cItem.quantity" @productIncreased="mutateCartItem({uid:cItem.uid, indexPos:index, act_:'incr_'})" @productDecreased="mutateCartItem({uid:cItem.uid, indexPos:index, act_:'decr_'})"/>
+        </CartCard>
       </div>
       <div class="cart-checkout" v-if="currentCart.length > 0">
           <div class="w-100 d-flex justify-content-between">
@@ -26,6 +28,8 @@
 import CartCard from '../cards/CartCard.vue';
 import DarkButtonVue from '../Buttons/DarkButton.vue';
 import DarkOutlineButton from '../Buttons/DarkOutlineButton.vue';
+import QuantityControlVue from '../Buttons/QuantityControl.vue';
+
 export default {
     emits:['cartClosed'],
     props: {
@@ -82,9 +86,22 @@ export default {
         },
         removeCartItem(prodID){
           this.$store.commit('cart/remove', {prodID});
+        },
+        mutateCartItem({uid,act_, indexPos}){
+          switch(act_){
+            case "incr_":
+                this.$store.commit('cart/increaseQuantity', {prodID:uid,index:indexPos });
+              break
+            case "decr_":
+            this.$store.commit('cart/decreaseQuantity', {prodID:uid,index:indexPos });
+              break
+          }
+        },
+        test(){
+          alert("workd")
         }
     },
-    components: { CartCard, DarkButtonVue, DarkOutlineButton }
+    components: { CartCard, DarkButtonVue, DarkOutlineButton, QuantityControlVue }
 }
 </script>
 <style scoped>
@@ -119,6 +136,18 @@ export default {
   width:100%;
   height:75%;
   overflow-y:scroll;
+}
+.cart-display::-webkit-scrollbar{
+    width:5px;
+}
+
+.cart-display::-webkit-scrollbar-track{
+    width:5px;
+    background:white
+}
+.cart-display::-webkit-scrollbar-thumb{
+    width:5px;
+    background:black;
 }
 
 .cart-checkout{
