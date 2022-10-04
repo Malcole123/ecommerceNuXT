@@ -37,15 +37,11 @@ export default {
   buildModules: [
   ],
   //Middle Ware
-  serverMiddleware:[
+  serverMiddleware:process.env.NODE_ENV === "production" ? [] : [
     {
       path:'/api',
       handler:'~/api/products.js',
-    },
-    {
-      path:'/checkout',
-      handler:'~/api/checkout.js',
-    },
+    }
   ],
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
