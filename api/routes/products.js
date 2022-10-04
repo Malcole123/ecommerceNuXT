@@ -1,8 +1,6 @@
-import express from 'express';
-import products from "../products.json"
-const app = express();
-app.use(express.json());
-
+const { Router } = require('express');
+const router = Router();
+const products = require('../../products.json')
 const getOne = (t_uid)=>{
   let return_var = products.find((item,index)=>{
     if(item.uid === t_uid){
@@ -23,16 +21,15 @@ const getAll = ()=>{
   }
 }
 
-app.get('/products', async (req,res, next)=>{
+router.get('/products', async (req,res, next)=>{
   let res_ =  getAll();
   res.send(res_);
 })
 
-app.get('/products/:id', async (req,res, next)=>{
+router.get('/products/:id', async (req,res, next)=>{
   let uid = new URLSearchParams(req.params).get('id');
   let res_ =  getOne(uid);
   res.send(res_)
 })
 
-module.exports = app;
-
+module.exports = router

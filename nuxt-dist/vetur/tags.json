@@ -29,17 +29,17 @@
   "ModalsLargeModalBase": {
     "description": "Auto imported from components/Modals/LargeModalBase.vue"
   },
-  "TopLevelWrappersMainWrapper": {
-    "description": "Auto imported from components/TopLevelWrappers/MainWrapper.vue"
-  },
-  "TopLevelWrappersProtectedContentWrapper": {
-    "description": "Auto imported from components/TopLevelWrappers/ProtectedContentWrapper.vue"
-  },
   "CardsCartCard": {
     "description": "Auto imported from components/cards/CartCard.vue"
   },
   "CardsTheMainProductCard": {
     "description": "Auto imported from components/cards/TheMainProductCard.vue"
+  },
+  "TopLevelWrappersMainWrapper": {
+    "description": "Auto imported from components/TopLevelWrappers/MainWrapper.vue"
+  },
+  "TopLevelWrappersProtectedContentWrapper": {
+    "description": "Auto imported from components/TopLevelWrappers/ProtectedContentWrapper.vue"
   },
   "CartsCheckoutCart": {
     "description": "Auto imported from components/carts/CheckoutCart.vue"

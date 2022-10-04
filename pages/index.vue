@@ -50,16 +50,16 @@ export default {
       })
       return return_arr
     }
-    const {ok , data, error} = await fetch("/api/products").then(res=>res.json()).then(data=>{return data}).catch(error=>{ return {error}});
-      let ps = data;
-      if(ok){
-        this.products.clean = [...data];
-        this.products.sorted = productSort(data);
+    const {data, status}  = await this.$axios.get("/api/products").then(data=>{return data}).catch(error=>{ return {error}});
+      if(data.ok){
+        let ps = data.data;
+        this.products.clean = [...ps];
+        this.products.sorted = productSort(ps);
       }else{
-        //console.log(error)
+        console.log(error)
       }
       this.searchActive = false;
-      this.productsLoaded = ok;
+      this.productsLoaded = status === 200 ? true : false;
   },
   components: { TheSidebar, EmbededCartVue, MainSearchVue, TheMainProductCard, MainWrapperVue },
   data(){

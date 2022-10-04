@@ -1,4 +1,5 @@
 export default {
+  target:'server',
   buildDir:"nuxt-dist",
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -37,10 +38,10 @@ export default {
   buildModules: [
   ],
   //Middle Ware
-  serverMiddleware:process.env.NODE_ENV === "production" ? [] : [
+  serverMiddleware:[
     {
       path:'/api',
-      handler:'~/api/products.js',
+      handler:'~/api',
     }
   ],
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -56,10 +57,6 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL:process.env.NUXT_BROWSER_BASE_URL
+    baseURL:process.env.NODE_ENV === "production" ? process.env.NUXT_BROWSER_BASE_URL : "/"
   },
-  publicRuntimeConfig:{
-    productURL:process.env.NUXT_PRODUCT_API
-  },
-  target:'server'
 }
