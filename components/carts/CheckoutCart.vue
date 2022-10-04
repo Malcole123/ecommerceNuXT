@@ -1,7 +1,7 @@
 <template>
   <div class="cart" :class="calc">
       <div class="cart-display" v-if="currentCart.length > 0">
-        <CartCard v-for="(cItem,index) in currentCart" :key="'cart-list-item' + index" :prodName="cItem.name" :prodImg="cItem.image" :quantity="cItem.quantity" :price="cItem.price" :prodID="cItem.uid"/>
+        <CartCard v-for="(cItem,index) in currentCart" :key="'cart-list-item' + index" :prodName="cItem.name" :prodImg="cItem.image" :quantity="cItem.quantity" :price="cItem.price" :prodID="cItem.uid" @deleteClicked="removeCartItem(cItem.uid)"/>
       </div>
       <div class="cart-checkout mt-4" v-if="currentCart.length > 0">
           <div class="w-100 d-flex justify-content-between">
@@ -71,6 +71,9 @@ export default {
         },
         closeCart(){
           this.$emit('cartClosed')
+        },
+        removeCartItem(prodID){
+          this.$store.commit('cart/remove', {prodID});
         }
     },
     components: { CartCard, DarkButtonVue, DarkOutlineButton }
@@ -79,8 +82,10 @@ export default {
 <style scoped>
 .cart {
   width: 100%;
+  min-height:300px;
   height:fit-content;
   background: white;
+  transition:0.2s ease-in-out;
 }
 
 .cart-heading{
@@ -90,6 +95,7 @@ export default {
 .cart-display{
   margin-top:15px;
   width:100%;
+  height:100%;
 }
 
 .cart-checkout{
@@ -103,11 +109,18 @@ export default {
 }
 
 .empty-cart-display{
-  height:100%;
+  height:230px;
   background-image:url('../../static/empy_cart.svg');
   background-size:contain;
   background-position:center;
   background-repeat:no-repeat;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+}
+.empty-cart-display strong{
+  position:absolute;
+  bottom:5px;
 }
 
 

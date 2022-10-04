@@ -26,6 +26,9 @@
   "ModalsLargeModalBase": {
     "description": "Auto imported from components/Modals/LargeModalBase.vue"
   },
+  "InteractiveCreditCard": {
+    "description": "Auto imported from components/Interactive/CreditCard.vue"
+  },
   "TopLevelWrappersMainWrapper": {
     "description": "Auto imported from components/TopLevelWrappers/MainWrapper.vue"
   },

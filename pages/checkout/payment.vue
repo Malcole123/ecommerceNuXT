@@ -1,26 +1,23 @@
 <template>
-  <MainWrapperVue :_class="'container pt-5 pb-5 standalone-component'">
-    <div class="standalone-main mb-4 bg-white pt-4 pb-4 d-flex justify-content-center">
-      <div class="col-lg-8 col-md-9 col-sm-11 bg-dark">
-        Hello
-      </div>
-
+  <MainWrapperVue :_class="'container standalone-component'">
+    <div class="w-100 pt-3 pb-2 d-lg-block-d-md-block d-sm-none"></div>
+    <div class="bg-white standalone-main d-flex flex-column align-items-center pt-3 pb-3">
+      <div class="bg-black">
+          <CreditCardVue :ccNumber="formModel.ccNumber" :ccName="formModel.ccName" :ccExpiry="formModel.ccExpiry" :ccCVV="formModel.ccCVV" :height="300" :protectNumber="false"/>
     </div>
-    <div class="bg-white standalone-main d-flex pt-3 pb-3  justify-content-center">
-      <PaymentForm class="mt-5" @successFullSubmit="successHandle">
-        <h4>Add New Card</h4>
-        <TextInputVue  :id="'finance-name-input'" :_class="'form-wrapped-input'" :name="'finance-input-name'" :placeholder="'John Maker'" :label="'Cardholder name'" :_required="true" @input_changed="inputHandle"/>
-        <TextInputVue  :id="'finance-cardnumber-input'" :_class="'form-wrapped-input'" :name="'finance-input-cardnumber'" :placeholder="'123 Plae Grond Stret'" :label="'Street'" :_required="true" @input_changed="inputHandle"/>
+      <PaymentForm @successFullSubmit="successHandle">
+        <TextInputVue  :id="'finance-ccname-input'" :_class="'form-wrapped-input'" :name="'finance-input-ccName'" :placeholder="'John Maker'" :label="'Cardholder name'" :_required="true" :maxLength="22" @input_keyUp="inputHandle"/>
+        <TextInputVue  :id="'finance-cardnumber-input'" :_class="'form-wrapped-input'" :name="'finance-input-ccNumber'" :placeholder="'XXXX XXXX XXXX XXXX'" :label="'Card Number'" :_required="true" :maxLength="16" :minLength="16" @input_keyUp="inputHandle" :validate_type="'card_number'" :restrictTo="'numbers'"/>
         <div class="row g-3">
           <div class="col-lg-5 col-md-6 col-sm-12">
-            <TextInputVue  :id="'finance-expirydate-input'" :_class="'form-wrapped-input'" :name="'finance-input-expirydate'" :placeholder="'MM / YYYY'" :label="'Expiry Date'" :_required="true" @input_changed="inputHandle"/>
+            <TextInputVue  :id="'finance-expirydate-input'" :_class="'form-wrapped-input'" :name="'finance-input-ccExpiry'" :placeholder="'MM / YYYY'" :label="'Expiry Date'" :_required="true" @input_keyUp="inputHandle" validate_type="exp_date" restrictTo="date-year" :maxLength="9" :minLength="9"/>
           </div>
           <div class="col-lg-5 col-md-6 col-sm-12">
-            <TextInputVue  :id="'finance-cvc-input'" :_class="'form-wrapped-input'" :name="'finance-input-cvc'" :placeholder="'123'" :label="'CVC'" :_required="true" @input_changed="inputHandle"/>
+            <TextInputVue  :id="'finance-cvc-input'" :_class="'form-wrapped-input'" :name="'finance-input-ccCVV'" :placeholder="'123'" :label="'CVC'" :_required="true" @input_keyUp="inputHandle" :maxLength="3" restrictTo="numbers"/>
           </div>
         </div>
-        <CheckboxInputVueVue @input_changed="inputHandle" :id="'finance-default-input'" :name="'finance-input-setDeafault'" :label="'Save this as your default payment'"/>
-        <DarkButtonVue :text="'Add Address'" :type="'submit'"/>
+        <CheckboxInputVueVue @input_changed="inputHandle" :_id="'finance-default-input'" :name="'finance-input-ccDefault'" :label="'Save this as your default payment'"/>
+        <DarkButtonVue :text="'Add Payment Method'" :type="'submit'"/>
         <div class="w-100 d-flex justify-content-between align-items-center mt-5">
         <BackButton/>
         <div>
@@ -42,28 +39,28 @@ import CheckboxInputVueVue from '~/components/inputs/FormInputs/CheckboxInputVue
 import DarkButtonVue from '~/components/Buttons/DarkButton.vue';
 import BackButton from '~/components/Buttons/NavigationButtons/BackButton.vue';
 import MainWrapperVue from '~/components/TopLevelWrappers/MainWrapper.vue';
+import CreditCardVue from '~/components/Interactive/CreditCard.vue';
 export default {
   setup() {
   },
   mounted(){
   },
-  components:{ TextInputVue, PaymentForm, CheckboxInputVueVue, DarkButtonVue, BackButton, MainWrapperVue },
+  components:{ TextInputVue, PaymentForm, CheckboxInputVueVue, DarkButtonVue, BackButton, MainWrapperVue, CreditCardVue },
   data(){
     return {
       formModel:{
-          name:"",
-          streetname:"",
-          cityname:"",
-          statename:"",
-          countryname:"",
-          setDefault:false,
+          ccName:"",
+          ccNumber:"",
+          ccExpiry:"",
+          ccCVV:"",
+          ccDefault:false,
       }
     }
   },
   methods:{
     async successHandle(){
-      const storeCommit  = await this.$store.commit("user/addAddress",this.formModel);
-      this.$router.push('/checkout/payment')
+      const storeCommit  =  this.$store.commit("user/addPayment",this.formModel);
+      this.$router.push('/checkout/review')
     },
     inputHandle(data){
       let key_ = data.name.split("-")[2]

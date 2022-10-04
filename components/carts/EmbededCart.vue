@@ -5,7 +5,7 @@
       <button type="button" class="btn btn-close d-lg-none d-md-block d-sm-block" @click="closeCart">Close&nbsp;&#10006;</button>
     </div>
       <div class="cart-display" v-if="currentCart.length > 0">
-        <CartCard v-for="(cItem,index) in currentCart" :key="'cart-list-item' + index" :prodName="cItem.name" :prodImg="cItem.image" :quantity="cItem.quantity" :price="cItem.price" :prodID="cItem.uid"/>
+        <CartCard v-for="(cItem,index) in currentCart" :key="'cart-list-item' + index" :prodName="cItem.name" :prodImg="cItem.image" :quantity="cItem.quantity" :price="cItem.price" :prodID="cItem.uid" @deleteClicked="removeCartItem(cItem.uid)"/>
       </div>
       <div class="cart-checkout" v-if="currentCart.length > 0">
           <div class="w-100 d-flex justify-content-between">
@@ -79,6 +79,9 @@ export default {
         },
         closeCart(){
           this.$emit('cartClosed')
+        },
+        removeCartItem(prodID){
+          this.$store.commit('cart/remove', {prodID});
         }
     },
     components: { CartCard, DarkButtonVue, DarkOutlineButton }

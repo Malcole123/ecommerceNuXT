@@ -6,7 +6,7 @@
       "src": "nuxt.config.js",
       "use": "@nuxtjs/vercel-builder",
       "config": {
-        "serverFiles": ["api/**"]
+        "serverFiles": ["api/**", "checkout/**"]
       }
     },
     {
@@ -17,15 +17,6 @@
   "trailingSlash":false,
   "installCommand":"npm install",
   "headers":[
-    {
-      "source": "/service-worker.js",
-      "headers" : [
-        {
-          "key" : "Cache-Control",
-          "value" : "public, max-age=0, must-revalidate"
-        }
-      ]
-    },
     {
       "source": "/(.*)",
       "headers" : [

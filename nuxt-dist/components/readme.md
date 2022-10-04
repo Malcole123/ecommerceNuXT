@@ -15,6 +15,7 @@ You can directly use them in pages and other components without the need to impo
 - `<FormsAddressFormVue>` | `<forms-address-form-vue>` (components/Forms/AddressFormVue.vue)
 - `<FormsPaymentForm>` | `<forms-payment-form>` (components/Forms/PaymentForm.vue)
 - `<ModalsLargeModalBase>` | `<modals-large-modal-base>` (components/Modals/LargeModalBase.vue)
+- `<InteractiveCreditCard>` | `<interactive-credit-card>` (components/Interactive/CreditCard.vue)
 - `<TopLevelWrappersMainWrapper>` | `<top-level-wrappers-main-wrapper>` (components/TopLevelWrappers/MainWrapper.vue)
 - `<TopLevelWrappersProtectedContentWrapper>` | `<top-level-wrappers-protected-content-wrapper>` (components/TopLevelWrappers/ProtectedContentWrapper.vue)
 - `<CardsCartCard>` | `<cards-cart-card>` (components/cards/CartCard.vue)

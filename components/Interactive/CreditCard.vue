@@ -1,0 +1,182 @@
+<template>
+  <div>
+    <svg :class="visibility" id="interactiveCard" :width="cardAppearance.width" :height="height" viewBox="0 0 789 517" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 4">
+<g id="Crad" filter="url(#filter0_bd_101_76)">
+<rect x="15" y="12" width="730" height="457.861" rx="43.9406" fill="black"/>
+<rect x="15.8788" y="12.8788" width="728.242" height="456.104" rx="43.0618" stroke="url(#paint1_linear_101_76)" stroke-width="1.75762"/>
+</g>
+<g id="CardIdentifier">
+<g id="Group">
+<g id="Group_2">
+<path id="Vector" d="M603.057 69.8677L595.87 112.047H607.365L614.559 69.8677H603.057Z" fill="white"/>
+</g>
+</g>
+<g id="Group_3">
+<g id="Group_4">
+<path id="Vector_2" d="M586.231 69.9149L574.972 98.6802L573.772 94.3369C571.551 89.1036 565.248 81.5878 557.847 76.8512L568.142 112.027L580.306 112.006L598.41 69.9061L586.231 69.9149Z" fill="white"/>
+</g>
+</g>
+<g id="Group_5">
+<g id="Group_6">
+<path id="Vector_3" d="M569.408 72.9334C568.74 70.3641 566.803 69.5983 564.399 69.5067H546.577L546.429 70.3463C560.298 73.711 569.476 81.8182 573.284 91.5662L569.408 72.9334Z" fill="white"/>
+</g>
+</g>
+<g id="Group_7">
+<g id="Group_8">
+<path id="Vector_4" d="M637.857 77.9538C641.618 77.8946 644.344 78.7166 646.461 79.5681L647.499 80.0559L649.054 70.914C646.777 70.0595 643.209 69.1429 638.756 69.1429C627.397 69.1429 619.39 74.8641 619.328 83.0629C619.254 89.121 625.031 92.5035 629.395 94.5228C633.875 96.5925 635.377 97.9082 635.356 99.7561C635.32 102.58 631.784 103.875 628.482 103.875C623.878 103.875 621.433 103.239 617.657 101.666L616.176 100.992L614.559 110.433C617.249 111.612 622.214 112.626 627.367 112.68C639.451 112.68 647.304 107.027 647.387 98.266C647.437 93.4732 644.371 89.8159 637.727 86.8149C633.706 84.8575 631.246 83.5566 631.27 81.5816C631.27 79.8283 633.357 77.9538 637.857 77.9538Z" fill="white"/>
+</g>
+</g>
+<g id="Group_9">
+<g id="Group_10">
+<path id="Vector_5" d="M678.556 69.9144H669.674C666.915 69.9144 664.863 70.6654 663.651 73.4151L646.583 112.07H658.655C658.655 112.07 660.624 106.873 661.07 105.734C662.392 105.734 674.121 105.752 675.791 105.752C676.134 107.224 677.193 112.07 677.193 112.07H687.857L678.556 69.9144ZM664.379 97.1008C665.325 94.6793 668.958 85.3127 668.958 85.3127C668.896 85.428 669.896 82.8734 670.49 81.2857L671.265 84.9224C671.265 84.9224 673.467 94.9928 673.929 97.1008H664.379Z" fill="white"/>
+</g>
+</g>
+</g>
+<text id="CardNumber" fill="white" xml:space="preserve" style="white-space: pre" font-family="Comfortaa" :font-size="cardAppearance.fontSizes.ccNum" font-weight="500" letter-spacing="0em"><tspan x="72.1568" y="290.461">{{cardNumFormat}}</tspan></text>
+<text id="OwnerName" fill="white" xml:space="preserve" style="white-space: pre" font-family="Comfortaa" :font-size="cardAppearance.fontSizes.ccName" letter-spacing="0em"><tspan class="text-capitalize" x="72.8236" y="414.982">{{ccName}}</tspan></text>
+<text id="OwnerNameTag" fill="white" xml:space="preserve" style="white-space: pre" font-family="Comfortaa" font-size="12.8571" letter-spacing="0em"><tspan x="75.0718" y="373.159">Owner Name</tspan></text>
+<text id="ExpiryTag" fill="white" xml:space="preserve" style="white-space: pre" font-family="Comfortaa" font-size="12.8571" letter-spacing="0em"><tspan x="488.923" y="373.159">Expiry</tspan></text>
+<text id="ExpiryDate" fill="white" xml:space="preserve" style="white-space: pre" font-family="Comfortaa" font-size="35.7143" letter-spacing="0em"><tspan x="486.509" y="414.982">{{ccExpiry}}</tspan></text>
+<text id="CVV Tag" fill="white" xml:space="preserve" style="white-space: pre" font-family="Comfortaa" font-size="12.8571" letter-spacing="0em"><tspan x="653.291" y="373.159">CVV</tspan></text>
+<text id="CVV" fill="white" xml:space="preserve" style="white-space: pre" font-family="Comfortaa" font-size="35.7143" letter-spacing="0em"><tspan x="650.656" y="414.982">{{ccCVV}}</tspan></text>
+<g id="Group 2">
+<path id="Vector_6" d="M118.46 170.075H131.016V177.05H118.46V170.075Z" fill="white"/>
+<path id="Vector_7" d="M84.6986 181.236H97.2544V188.211H84.6986V181.236Z" fill="white"/>
+<path id="Vector_8" d="M84.6986 170.075H97.2544V177.05H84.6986V170.075Z" fill="white"/>
+<path id="Vector_9" d="M101.44 172.865H114.275V185.421H101.44V172.865Z" fill="white"/>
+<path id="Vector_10" d="M118.46 181.236H131.016V188.211H118.46V181.236Z" fill="white"/>
+<path id="Vector_11" d="M99.347 165.89C100.503 165.89 101.44 166.827 101.44 167.982V168.68H105.764V163.797C105.764 163.242 105.985 162.71 106.377 162.317L106.99 161.704H84.6986V165.89H99.347Z" fill="white"/>
+<path id="Vector_12" d="M109.95 164.664V168.68H114.274V167.982C114.274 166.827 115.211 165.89 116.367 165.89H131.016V161.704H112.909L109.95 164.664Z" fill="white"/>
+<path id="Vector_13" d="M116.367 192.396C115.211 192.396 114.275 191.459 114.275 190.304V189.606H109.95V194.489C109.95 195.044 109.729 195.576 109.337 195.969L108.724 196.582H131.016V192.396H116.367Z" fill="white"/>
+<path id="Vector_14" d="M105.764 193.622V189.606H101.44V190.304C101.44 191.459 100.503 192.396 99.347 192.396H84.6986V196.582H102.805L105.764 193.622Z" fill="white"/>
+<path id="Vector_15" d="M133.108 149.149H82.606C76.8366 149.149 72.1428 153.842 72.1428 159.612V198.674C72.1428 204.444 76.8366 209.137 82.606 209.137H133.108C138.878 209.137 143.571 204.444 143.571 198.674V159.612C143.571 153.842 138.878 149.149 133.108 149.149ZM135.201 198.674C135.201 199.83 134.264 200.767 133.108 200.767H82.606C81.4503 200.767 80.5134 199.83 80.5134 198.674V159.612C80.5134 158.456 81.4503 157.519 82.606 157.519H133.108C134.264 157.519 135.201 158.456 135.201 159.612V198.674Z" fill="white"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_bd_101_76" x="-5.50562" y="-8.50562" width="794.446" height="525.237" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feGaussianBlur in="BackgroundImageFix" stdDeviation="10.2528"/>
+<feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_101_76"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="14.6469" dy="17.5762"/>
+<feGaussianBlur stdDeviation="14.6469"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"/>
+<feBlend mode="normal" in2="effect1_backgroundBlur_101_76" result="effect2_dropShadow_101_76"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_101_76" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_101_76" x1="51.4707" y1="12" x2="824.24" y2="532.696" gradientUnits="userSpaceOnUse">
+<stop stop-color="#070000" stop-opacity="0.25"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="paint1_linear_101_76" x1="15" y1="31.3339" x2="745" y2="469.861" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0.25"/>
+<stop offset="1" stop-color="white" stop-opacity="0.23"/>
+</linearGradient>
+</defs>
+</svg>
+
+
+  </div>
+</template>
+<script>
+export default {
+  setup() {
+
+  },
+  props:{
+    ccNumber:{
+      type:String,
+      required:false,
+      default:""
+    },
+    ccName:{
+      type:String,
+      required:false,
+      default:""
+    },
+    ccExpiry:{
+      type:String,
+      required:false,
+      default:""
+    },
+    ccCVV:{
+      type:String,
+      required:false,
+      default:""
+    },
+    height:{
+      type:Number,
+      required:true,
+      default:300
+    },
+    protectNumber:{
+      type:Boolean,
+      required:true,
+      default:true
+    },
+  },
+  computed:{
+    visibility(){
+      let check_arr = [this.ccNumber, this.ccName, this.ccExpiry, this.ccCVV];
+      let check_ = check_arr.filter((item,index)=>{
+          if(item.length > 0){
+            return item
+          }
+      });
+      if(check_.length > 0){
+        return "creditcard_ill card_visble"
+      }else{
+        return "creditcard_ill card_hidden"
+      }
+    },
+    cardNumFormat(){
+      let ret_ = this.ccNumber;
+      let block = 4;
+
+      if(this.protectNumber){
+            return "Ending in " + ret_.substr(ret_.length-block, block)
+      }else{
+        let num_ =Math.floor(ret_.length/block);
+          let rem_ =ret_.length%block;
+          let arr_ = [];
+          for(let i = 0; i < num_; i++){
+            let str_ = ret_.substr(i*block,block)
+            arr_.push(str_);
+          }
+          arr_.push(ret_.substr((arr_.length * block), rem_))
+          return  arr_.join(" ");
+      }
+    },
+    cardAppearance(){
+      return{
+        height:this.height,
+        width:this.height * 1.5943666667,
+        fontSizes:{
+          ccNum:this.height/6,
+          ccName:this.height/8.4,
+          ccExp:this.height/8.4,
+        }
+      }
+    }
+  }
+}
+</script>
+
+<style scoped>
+  .creditcard_ill{
+      transition:0.2s ease-in-out
+  }
+
+    .card_hidden{
+      transform:scale(0.8)
+    }
+
+    .card_visble{
+      transform:scale(1)
+    }
+
+    .card_visble_parent > svg#interactiveCard{
+      display:block
+    }
+</style>

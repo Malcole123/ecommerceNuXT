@@ -9,9 +9,9 @@ const state = ()=>({
       address:[],
       payment:[{ /*NOT SUGGESTED FOR PRODUCTION --ONLY FOR TEST PURPOSES--*/
         ccNumber:"378282246310005",
-        ccv:"776",
-        expDate:"02/36",
-        ccHoldName:"",
+        ccCvv:"776",
+        ccExp:"02/36",
+        ccName:"",
         ccType:"Visa",
         default:true,
       }]
@@ -33,7 +33,13 @@ const getters = {
           payment,
           //cartItems
         }
+    },
+    myPayments(state){
+      return {
+        payments:state.user.payment
+      }
     }
+
 }
 
 const mutations = {
@@ -65,7 +71,31 @@ const mutations = {
             address:state.user.address
           }
         }
-    }
+    },
+    async addPayment(state, {ccNumber, ccName, ccExp, setDefault}){
+      let storeObj = {
+        ccNumber,
+        ccName,
+        ccExp,
+        ccType:"----",
+        default:setDefault,
+      }
+      //Do check for saved similar addesses in future here
+      state.filled = true;
+      state.user.payment.push(storeObj);
+      console.log(state.user.payment)
+      localStorage.setItem('user_test', JSON.stringify({
+        filled:state.filled,
+        authToken:state.authToken,
+        user:state.user
+      }))
+      return {
+        ok:true,
+        update:{
+          payment:state.user.payment
+        }
+      }
+  }
 }
 
 const actions = {

@@ -14,6 +14,9 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'preconnect', type: '', href: 'https://fonts.googleapis.com' },
+      { rel: 'preconnect', type: '', href: 'https://fonts.gstatic.com' },
+      { rel: 'preconnect', type: '', href: 'https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap' },
       //{ rel:"stylesheet", type:"", href:"https://unpkg.com/aos@2.3.1/dist/aos.css"}
     ]
   },
@@ -34,10 +37,14 @@ export default {
   buildModules: [
   ],
   //Middle Ware
-  serverMiddleware:[
+  serverMiddleware:process.env.NODE_ENV === "production" ? [] : [
     {
       path:'/api',
       handler:'~/api/products.js',
+    },
+    {
+      path:'/checkout',
+      handler:'~/api/checkout.js',
     },
   ],
   // Modules: https://go.nuxtjs.dev/config-modules

@@ -70,7 +70,7 @@ export default {
             this.cartClass =  'show-cart';
           break
         case "close":
-          this.cartClass = ''
+            this.cartClass = ''
           break
       }
 

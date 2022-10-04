@@ -21,12 +21,20 @@
           </b-card>
         </div>
         <div class="mt-3">
-          <b-card title="PAYMENT METHOD" sub-title="Default" style="letter-spacing:4px">
-              <div class="d-flex w-100 justify-content-between align-items-start">
-                <b-card-text>
+          <b-card title="PAYMENT METHOD" :sub-title="selected.address.default ? 'Default' : ''" style="letter-spacing:4px">
+              <div class="row g-2">
+                <div class="col-lg-8 col-md-8 col-sm-12">
+                  <b-card-text>
                   <!--Add Card Illustration-->
+                  <div :class="state.paymentOk === false ? 'hidden-section' : 'd-block'">
+                    <CreditCardVue :height="200" :protectNumber="true" :ccName="selected.payment.ccName" :ccNumber="selected.payment.ccNumber" :ccExpiry="selected.payment.ccExp" :ccCVV="'***'"/>
+                  </div>
                 </b-card-text>
-                <button type="button" class="btn btn-outline-dark">Change Payment Method</button>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                  <button type="button" class="btn btn-outline-dark w-100" v-if="state.paymentOk" v-b-modal="'payment-sel-modal-lg'">Change Payment</button>
+                  <NuxtLink to="/checkout/payment"><button type="button" class="btn btn-outline-dark w-100" v-if="!state.paymentOk">Add Payment Method</button></NuxtLink>
+                </div>
               </div>
           </b-card>
         </div>
@@ -70,6 +78,38 @@
                 </div>
           </div>
     </LargeModalBase>
+      <!--Select Payment Method Modal-->
+      <LargeModalBase :_id="'payment-sel-modal-lg'" :title="'Select Your Payment Method'">
+          <div class="_modal-body">
+              <form class="w-100 select-address-form">
+                <b-list-group>
+              <b-list-group-item v-for="(pay,i) in displayPayments" :key="'payment-update'+ i" class="d-flex justify-content-between align-items-center">
+                <div class="row w-100">
+                  <div class="col-lg-4 col-sm-12 d-flex justify-content-center">
+                    <CreditCardVue :height="150" :protectNumber="true" :ccName="pay.ccName" :ccNumber="pay.ccNumber" :ccExpiry="pay.ccExp" :ccCVV="'***'"/>
+                  </div>
+                  <div class="col-lg-6 col-sm-12">
+                    <ul class="address_display">
+                    <!--Address Template Here-->
+                    <li>{{pay.ccName}}</li>
+                    <li>{{"Ending in " + pay.ccNumber.substr(pay.ccNumber.length-4,4)}}</li>
+                  </ul>
+                  </div>
+                  <div class="col-lg-2 col-sm-12 d-flex justify-content-center align-items-center">
+                    <button type="button" class="btn btn-dark w-100" @click="confirmPaymentUpdate(i)" v-if="pay.ccNumber !== selected.payment.ccNumber">Select</button>
+                  </div>
+                </div>
+
+              </b-list-group-item>
+            </b-list-group>
+              </form>
+              <div class="w-100 d-flex justify-content-center mt-3">
+                    <div class="w-50">
+                      <DarkButton :text="'Add New Payment'" class="mt-2" @btnClicked="addNewPayment"/>
+                    </div>
+                </div>
+          </div>
+    </LargeModalBase>
   </MainWrapperVue>
 </template>
 
@@ -80,6 +120,7 @@ import MainWrapperVue from '~/components/TopLevelWrappers/MainWrapper.vue';
 import LargeModalBase from '../../components/Modals/LargeModalBase.vue';
 import CheckoutCartVue from '~/components/carts/CheckoutCart.vue';
 import CheckoutSummary from '../../components/carts/CheckoutSummary.vue';
+import CreditCardVue from '~/components/Interactive/CreditCard.vue';
 export default {
     async mounted() {
 
@@ -101,9 +142,10 @@ export default {
           },
           payment:{
             ccNumber:"",
-            ccv:"",
-            expDate:"",
-            ccHoldName:""
+            ccCvv:"",
+            ccExp:"",
+            ccName:"",
+            default:false,
           },
           cart:{},
         },
@@ -124,7 +166,10 @@ export default {
 `${this.selected.address.country},`
         ]
         },
-
+        displayPayments(){
+          let methods_ = this.$store.getters["user/myPayments"];
+          return methods_.payments;
+        }
     },
     methods:{
         async checkoutCheck(){
@@ -132,11 +177,9 @@ export default {
           const checkoutDetails = await this.$store.getters["user/myCheckoutDetails"];
           this.clean.address = checkoutDetails.address;
           this.clean.payment = checkoutDetails.payment;
-          console.log(checkoutDetails, 'helloworld')
           //Set to instance
           this.updateCheckoutAddress(0);
-          this.updateSelectedPayment(0)
-
+          this.updateSelectedPayment(0);
             //Set address from selected address based on id -> Update later to check by default;
         },
         dataSelect(arr_ , { getDef , id_, where, confirm}){
@@ -174,13 +217,19 @@ export default {
           this.setData(this.dataSelect(this.clean.address, {id_:id_, where:'address',confirm:'addressOk'}))
         },
         updateSelectedPayment(id_){
-          this.setData(this.dataSelect(this.clean.address, {id_:id_, where:'payment',confirm:'paymentOk'}))
+          this.setData(this.dataSelect(this.clean.payment, {id_:id_, where:'payment',confirm:'paymentOk'}))
         },
         confirmUpdate(){
           this.updateCheckoutAddress(this.state.addressInd);
           //Hide bootstrap modal after update
           this.$bvModal.hide('ship-sel-modal-lg');
-          this.showtoastUpdate(5000)
+          this.showtoastUpdate(5000 , 'Your shipping address has been updated')
+        },
+        confirmPaymentUpdate(_id){
+          this.updateSelectedPayment(_id);
+          //Hide bootstrap modal after update
+          this.$bvModal.hide('payment-sel-modal-lg');
+          this.showtoastUpdate(5000, 'Your payment method has been updated')
         },
         addNewAddress(){
           this.$bvModal.hide('ship-sel-modal-lg');
@@ -188,8 +237,14 @@ export default {
             this.$router.push('/checkout/address')
           }, 500)
         },
-        showtoastUpdate(timing){
-          this.$bvToast.toast('Your shipping address has been updated', {
+        addNewPayment(){
+          this.$bvModal.hide('payment-sel-modal-lg');
+          setTimeout(()=>{
+            this.$router.push('/checkout/payment')
+          }, 500)
+        },
+        showtoastUpdate(timing, text_){
+          this.$bvToast.toast(text_, {
               title:"Ecom Store Assistant",
               autoHideDelay:timing,
               toaster:'b-toaster-bottom-right'
@@ -197,7 +252,7 @@ export default {
         }
 
     },
-    components: { TheSidebar, DarkButton, MainWrapperVue, LargeModalBase, CheckoutCartVue, CheckoutSummary }
+    components: { TheSidebar, DarkButton, MainWrapperVue, LargeModalBase, CheckoutCartVue, CheckoutSummary, CreditCardVue }
 }
 </script>
 

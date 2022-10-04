@@ -5,7 +5,7 @@
       <div class="w-100">
         <NuxtLink to="/"><button type="button" class="btn btn-outline-dark">Back</button></NuxtLink>
       </div>
-      <div class="row g-3 mt-4">
+      <div class="row p-2 g-3 mt-4">
         <div class="col-lg-4 col-md-5 col-sm-12 p-2">
             <div class="product-image" :style="`background-image:url('${product.image}')`"></div>
         </div>
@@ -31,19 +31,24 @@
             </div>
           </div>
         </div>
+        <div class="col-12 mt-4">
+        <b-card :title="state.detailView.toLocaleUpperCase()" body-class="text-left" header-tag="nav">
+            <template #header>
+              <b-nav card-header tabs>
+                <b-nav-item v-for="(menu,i) in state.details_menu" :key="'det_menu_item' + i" class="text-capitalize text-dark" :active="state.detailView === menu ? true : false" @click="changeMenu(menu)">{{menu}}</b-nav-item>
+              </b-nav>
+            </template>
+
+            <b-card-text>
+              {{productDetails}}
+            </b-card-text>
+
+
+        </b-card>
       </div>
-      <div class="w-100 mt-3 mb-5">
-          <h3 class="view-sub-heading mb-2">Description</h3>
-          <p class="product-description" >{{product.description}}</p>
       </div>
-      <div class="w-100 mb-5">
-          <h3 class="view-sub-heading mb-2">Reviews</h3>
-          <p v-for="n in 5" :key="'dummy-review-'+n" class="product-description" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus natus provident nihil sint, molestiae repudiandae. Asperiores sint tempore sunt illum!</p>
-      </div>
-      <div class="w-100 mb-5">
-          <h3 class="view-sub-heading mb-2">More Products</h3>
-          <p v-for="n in 5" :key="'dummy-review-'+n" class="product-description" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus natus provident nihil sint, molestiae repudiandae. Asperiores sint tempore sunt illum!</p>
-      </div>
+
+
     </div>
     <div class="cart-wrapper" :class="cartClass">
       <EmbededCartVue @cartClosed="closeCart"/>
@@ -66,10 +71,9 @@ export default {
   async mounted(){
       this.device.width = window.innerWidth;
       let uid = new URLSearchParams(window.location.search).get('uid');
-      //const {ok , data} = await fetch("https://x8ki-letl-twmt.n7.xano.io/api:3ky6p00f/products/1?uid="+ uid).then(res=>res.json()).then(data=>{return data}).catch(error=>{return []});
       const {data, ok, all_other_products } = await fetch("/api/products/"+uid).then(res=>res.json()).then(data=>{return data}).catch(error=>{return error})
       if(ok){
-          const { image, description, title , category, price, rating, id } = data;
+          const { image, description, title , category, price, rating, uid } = data;
           this.product.image = image;
           this.product.description = description;
           this.product.name = title;
@@ -77,7 +81,7 @@ export default {
           this.product.price = price;
           this.product.rating.rate = rating.rate;
           this.product.rating.count = rating.count;
-          this.product.uid = id
+          this.product.uid = uid
       }else{
         //Handle Error Here
         console.log('error')
@@ -102,14 +106,34 @@ export default {
           rate:0,
           total:5,
           count:0,
-        }
+        },
+        reviews:[],
+      },
+      state:{
+        detailView:'description',
+        details_menu:['description', 'reviews', 'shipping']
       }
     }
   },
   computed:{
       pricePrettier(){
         return "$ " + parseFloat(this.product.price).toFixed(2)
-      }
+      },
+      productDetails(){
+          let val_ = "";
+          switch(this.state.detailView){
+            case "description":
+              val_ = this.product.description;
+              break
+            case "reviews":
+              val_ = this.product.reviews
+              break
+            case "shipping":
+              val_ = "Item will not be shipped. This is not a real store."
+              break
+          }
+          return val_
+      },
   },
   watch:{
 
@@ -143,6 +167,9 @@ export default {
           break
       }
 
+    },
+    changeMenu(menu){
+        this.state.detailView = menu
     }
   }
 }

@@ -18,6 +18,7 @@ import anymatch from 'anymatch';
 import TrashIcon from '../icons/TrashIcon.vue';
 export default ({
   components:{ TrashIcon,},
+  emits:['deleteClicked'],
   props:{
     prodID:{
       type:anymatch,
@@ -54,8 +55,7 @@ export default ({
  },
  methods:{
     removeItem(){
-      this.$store.commit('cart/remove', {prodID:this.prodID});
-      console.log('removed')
+      this.$emit('deleteClicked')
     }
  }
 })

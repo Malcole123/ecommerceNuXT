@@ -7,6 +7,7 @@ export { default as ButtonsViewCartBtn } from '../../components/Buttons/ViewCart
 export { default as FormsAddressFormVue } from '../../components/Forms/AddressFormVue.vue'
 export { default as FormsPaymentForm } from '../../components/Forms/PaymentForm.vue'
 export { default as ModalsLargeModalBase } from '../../components/Modals/LargeModalBase.vue'
+export { default as InteractiveCreditCard } from '../../components/Interactive/CreditCard.vue'
 export { default as TopLevelWrappersMainWrapper } from '../../components/TopLevelWrappers/MainWrapper.vue'
 export { default as TopLevelWrappersProtectedContentWrapper } from '../../components/TopLevelWrappers/ProtectedContentWrapper.vue'
 export { default as CardsCartCard } from '../../components/cards/CartCard.vue'
