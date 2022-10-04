@@ -23,8 +23,6 @@ const getAll = ()=>{
   }
 }
 
-
-
 app.get('/products', async (req,res, next)=>{
   let res_ =  getAll();
   res.send(res_);
@@ -36,9 +34,5 @@ app.get('/products/:id', async (req,res, next)=>{
   res.send(res_)
 })
 
-
-
-
-export default app
-
+module.exports = app;
 
