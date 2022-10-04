@@ -37,7 +37,7 @@ export default {
   buildModules: [
   ],
   //Middle Ware
-  serverMiddleware:process.env.NODE_ENV === "production" ? [] : [
+  serverMiddleware:[
     {
       path:'/api',
       handler:'~/api/products.js',
