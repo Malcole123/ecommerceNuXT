@@ -11,7 +11,7 @@ const state = ()=>({
         ccNumber:"378282246310005",
         ccCvv:"776",
         ccExp:"02/36",
-        ccName:"",
+        ccName:"Default User",
         ccType:"Visa",
         default:true,
       }]
