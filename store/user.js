@@ -83,7 +83,6 @@ const mutations = {
       //Do check for saved similar addesses in future here
       state.filled = true;
       state.user.payment.push(storeObj);
-      console.log(state.user.payment)
       localStorage.setItem('user_test', JSON.stringify({
         filled:state.filled,
         authToken:state.authToken,

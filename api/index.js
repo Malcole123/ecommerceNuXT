@@ -3,10 +3,7 @@ const app = express();
 
 
 const products =require('./routes/products');
-
-
 app.use(products);
-app.use(express.json());
 
 
 module.exports = app

@@ -5,6 +5,12 @@
   "TheSidebar": {
     "description": "Auto imported from components/TheSidebar.vue"
   },
+  "FormsAddressFormVue": {
+    "description": "Auto imported from components/Forms/AddressFormVue.vue"
+  },
+  "FormsPaymentForm": {
+    "description": "Auto imported from components/Forms/PaymentForm.vue"
+  },
   "ButtonsAddCartButton": {
     "description": "Auto imported from components/Buttons/AddCartButton.vue"
   },
@@ -17,17 +23,11 @@
   "ButtonsViewCartBtn": {
     "description": "Auto imported from components/Buttons/ViewCartBtn.vue"
   },
-  "FormsAddressFormVue": {
-    "description": "Auto imported from components/Forms/AddressFormVue.vue"
-  },
-  "FormsPaymentForm": {
-    "description": "Auto imported from components/Forms/PaymentForm.vue"
+  "ModalsLargeModalBase": {
+    "description": "Auto imported from components/Modals/LargeModalBase.vue"
   },
   "InteractiveCreditCard": {
     "description": "Auto imported from components/Interactive/CreditCard.vue"
-  },
-  "ModalsLargeModalBase": {
-    "description": "Auto imported from components/Modals/LargeModalBase.vue"
   },
   "TopLevelWrappersMainWrapper": {
     "description": "Auto imported from components/TopLevelWrappers/MainWrapper.vue"
