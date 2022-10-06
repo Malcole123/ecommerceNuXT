@@ -56,7 +56,7 @@ const mutations = {
   },
 
   remove(state, { prodID }){
-    state.cartItems = state.cartItems.filter((item,index)=>{
+    state.cartItems = [...state.cartItems].filter((item,index)=>{
       if(item.uid !== prodID){
         return item
       }

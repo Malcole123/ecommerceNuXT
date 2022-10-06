@@ -89,7 +89,12 @@ export default {
               name:this.name,
               price:this.price,
               img:this.image
-        })
+        });
+        this.$bvToast.toast(`You added ${this.name} to your cart`, {
+              title:"Ecom Store Assistant",
+              autoHideDelay:5000,
+              toaster:'b-toaster-bottom-right'
+          })
         this.$emit('productAdded')
       },
 

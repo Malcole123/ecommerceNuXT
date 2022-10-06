@@ -1,6 +1,6 @@
 <template>
   <MainWrapperVue _class="main-app-body">
-    <TheSidebar @cartOpen="openCart"/>
+    <TheSidebar @cartOpen="cartToggle('open')"/>
     <div class="product-search-area">
       <MainSearchVue @searchChange="searchProducts" @searchEnd="endSearch"/>
       <div class="results-display-area" v-if="productsLoaded">
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="cart-wrapper" :class="cartClass">
-      <EmbededCartVue :calc="'page-cart'" @cartClosed="closeCart"/>
+      <EmbededCartVue :calc="'page-cart'" @cartClosed="cartToggle('close')"/>
     </div>
   </MainWrapperVue>
 </template>
@@ -56,7 +56,7 @@ export default {
         this.products.clean = [...ps];
         this.products.sorted = productSort(ps);
       }else{
-        console.log(error)
+        //console.log(error)
       }
       this.searchActive = false;
       this.productsLoaded = status === 200 ? true : false;
@@ -85,15 +85,6 @@ export default {
 
   },
   methods:{
-    setPage(){
-
-    },
-    openCart(){
-      this.cartToggle('open')
-    },
-    closeCart(){
-      this.cartToggle('close')
-    },
     cartToggle(act_){
       switch(act_){
         case "open":
